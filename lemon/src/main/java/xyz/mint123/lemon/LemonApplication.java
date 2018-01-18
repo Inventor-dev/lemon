@@ -2,8 +2,12 @@ package xyz.mint123.lemon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import xyz.mint123.lemon.config.DruidConfiguration;
 
 @SpringBootApplication
+@EnableConfigurationProperties(DruidConfiguration.class)
 public class LemonApplication {
 
 	public static void main(String[] args) {
