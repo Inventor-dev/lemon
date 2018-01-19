@@ -7,7 +7,7 @@ package xyz.mint123.lemon.core;
  */
 public class Constants {
 	/**
-	 * 异常头<br>
+	 * 通用异常头<br>
      * 程序发生了异常
 	 */
 	 public static final String Exception_Head = "SOME ERRORS OCCURED! AS FOLLOWS :";
