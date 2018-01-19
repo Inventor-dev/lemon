@@ -13,7 +13,7 @@ import com.alibaba.druid.filter.config.ConfigTools;
  * @author YP
  * @version 2018年1月19日
  */
-public class PasswordGen {
+public class DataBasePasswordGen {
 
 	/**
 	 * 钥匙长度
