@@ -1,7 +1,8 @@
-package xyz.mint123.lemon.config;
+package xyz.mint123.lemon.core.config;
 
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.MyBatisSystemException;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +33,14 @@ public class MyBatisConfiguration implements TransactionManagementConfigurer {
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setTypeAliasesPackage("tk.mybatis.springboot.model");
+        bean.setTypeAliasesPackage("xyz.mint123.lemon");
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+            bean.setMapperLocations(resolver.getResources("classpath:*.xml"));
             return bean.getObject();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new MyBatisSystemException(e);
         }
     }
 	
