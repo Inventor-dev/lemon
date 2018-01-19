@@ -1,5 +1,6 @@
 package xyz.mint123.lemon.core.config;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -31,6 +32,9 @@ public class DruidSourceConfiguration {
 	//读取 密码
 	private String readPassword;
 	
+	//读取密码公钥
+	private String readKey;
+	
 	//写入 url
 	private String writeUrl;
 	
@@ -39,6 +43,9 @@ public class DruidSourceConfiguration {
 	
 	//写入 密码
 	private String writePassword;
+	
+	//写入密码公钥
+	private String writeKey;
 	
 	//初始链接数
 	private int initialSize;
@@ -69,9 +76,10 @@ public class DruidSourceConfiguration {
 	/**
 	 * 读取数据源 
 	 * @return
+	 * @throws SQLException 
 	 */
 	@Bean(name="readDataSource",initMethod="init")
-	public DruidDataSource readDataSource(@Autowired Filter statFilter){
+	public DruidDataSource readDataSource(@Autowired Filter statFilter) throws SQLException{
 		DruidDataSource readDataSource = new DruidDataSource();
 		readDataSource.setDriverClassName(driver);
 		readDataSource.setUrl(readUrl);
@@ -85,6 +93,8 @@ public class DruidSourceConfiguration {
 		ArrayList<Filter> filters = new ArrayList<Filter>();
 		filters.add(statFilter);
 		readDataSource.setProxyFilters(filters);
+		readDataSource.setFilters("config");
+		readDataSource.setConnectionProperties("config.decrypt=true;config.decrypt.key=" + readKey);
 		return readDataSource;
 	}
 
@@ -92,10 +102,11 @@ public class DruidSourceConfiguration {
 	/**
 	 * 写入数据源 
 	 * @return
+	 * @throws SQLException 
 	 */
 	@Bean(name="dataSource",initMethod="init")
 //	@Bean(name="writeDataSource",initMethod="init")
-	public DruidDataSource writeDataSource(@Autowired Filter statFilter){
+	public DruidDataSource writeDataSource(@Autowired Filter statFilter) throws SQLException{
 		DruidDataSource writeDataSource = new DruidDataSource();
 		writeDataSource.setDriverClassName(driver);
 		writeDataSource.setUrl(writeUrl);
@@ -108,9 +119,11 @@ public class DruidSourceConfiguration {
 		writeDataSource.setDefaultReadOnly(false);
 		ArrayList<Filter> filters = new ArrayList<Filter>();
 		filters.add(statFilter);
+		writeDataSource.setFilters("config");
+		writeDataSource.setConnectionProperties("config.decrypt=true;config.decrypt.key=" + writeKey);
 		return writeDataSource;
 	}
-	
+
 
 	public String getDriver() {
 		return driver;
@@ -152,6 +165,16 @@ public class DruidSourceConfiguration {
 	}
 
 
+	public String getReadKey() {
+		return readKey;
+	}
+
+
+	public void setReadKey(String readKey) {
+		this.readKey = readKey;
+	}
+
+
 	public String getWriteUrl() {
 		return writeUrl;
 	}
@@ -179,6 +202,16 @@ public class DruidSourceConfiguration {
 
 	public void setWritePassword(String writePassword) {
 		this.writePassword = writePassword;
+	}
+
+
+	public String getWriteKey() {
+		return writeKey;
+	}
+
+
+	public void setWriteKey(String writeKey) {
+		this.writeKey = writeKey;
 	}
 
 
@@ -220,6 +253,8 @@ public class DruidSourceConfiguration {
 	public void setMaxWait(long maxWait) {
 		this.maxWait = maxWait;
 	}
+	
+
 	
 
 
