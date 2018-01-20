@@ -11,24 +11,19 @@ import xyz.mint123.lemon.core.config.DataSourceConfiguration;
 public class LemonApplication {
 
 	public static void main(String[] args) {
-		System.out.printf("\r\r");
-		System.out.println("                      .-~~~~~~~~~-._       _.-~~~~~~~~~-.                         "); 
-		System.out.println("                  __.'              ~.   .~              `.__                     "); 
-		System.out.println("                .'//     SERVER       \\./       START      \\\\`.                "); 
-		System.out.println("              .'//                     |                     \\`.                 "); 
-		System.out.println("            .'// .-~\"\"\"\"\"\"\"~~~~-._     |     _,-~~~~\"\"\"\"\"\"\"~-. \\`. "); 
-		System.out.println("          .'//.-\"                 `-.  |  .-'                 \"-.\\\\`.         "); 
-		System.out.println("        .'//______.============-..   \\ | /   ..-============.______\\\\`.        "); 
-		System.out.println("      .'______________________________\\|/______________________________`.        ");
 		System.out.println("");
-		System.out.printf("\t\t     ╭────╮                  ╭──╮      ╭──── ────╮           ╭──╮             ╭────╮                                   \r ");
-		System.out.printf("\t\t     ╰╮    ╭╯               / ╭─╯     │        │        │        /   \\   │           \\          \r ");
-		System.out.printf("\t\t      │    │              /  ╰─╮     │    ─      ─    │      │               │       │      _  │                             \r ");
-		System.out.printf("\t\t      │    │            │        ╭─╯     │     \\_/  │      │      O  │       │       │     │                          \r ");
-		System.out.printf("\t\t      │    │            │        ╰─╮     │        │        │       │              │       │       │      │                            \r ");
-		System.out.printf("\t\t     ╭╯    ╰────╮  │            │     │        │        │       \\    /   │      │      │                            \r ");
-		System.out.printf("\t\t     ╰────────╯  ╰──────╯     ╰────╯────╯           ╰───╯           ╰───┴───╯          v 1.0  \r ");
-		
+		System.out.println("");
+		System.out.println("     ╭────╮         ╭───╮   ╭──── ────╮      ╭───╮       ╭──────╮               ");
+		System.out.println("     ╰╮  ╭╯        /  ╭─╯   │    │    │     /     \\      │       \\          	");
+		System.out.println("      │  │        /   ╰─╮   │ ─     ─ │    │       │     │   _   │              ");
+		System.out.println("      │  │       │    ╭─╯   │   \\_/   │    │   O   │     │   │   │             ");
+		System.out.println("      │  │       │    ╰─╮   │         │    │   │   │     │   │   │              ");
+		System.out.println("     ╭╯  ╰────╮  │      │   │    │    │     \\     /      │   │   │             ");
+		System.out.println("     ╰────────╯  ╰──────╯   ╰────╯────╯      ╰───╯       ╰───┴───╯      v 1.0   ");
+		System.out.println("");
+		System.out.println("");
 		SpringApplication.run(LemonApplication.class, args);
 	}
 }
+
+
