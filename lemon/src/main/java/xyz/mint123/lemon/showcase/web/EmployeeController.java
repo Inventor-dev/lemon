@@ -1,10 +1,14 @@
 package xyz.mint123.lemon.showcase.web;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import xyz.mint123.lemon.core.util.CacheUtil;
 import xyz.mint123.lemon.showcase.entity.EmployeeEntity;
 import xyz.mint123.lemon.showcase.repository.EmployeeRepertory;
 
@@ -40,5 +44,12 @@ public class EmployeeController {
 		return entity;
 	}
 	
+	@GetMapping("/test")
+	public Collection<String> test(){
+		EmployeeEntity entity = new EmployeeEntity();
+		entity.setName("测试");
+		CacheUtil.getInstance().getCache().put("test", entity );
+		return CacheUtil.getInstance().getCacheNames();
+	}
 	
 }
