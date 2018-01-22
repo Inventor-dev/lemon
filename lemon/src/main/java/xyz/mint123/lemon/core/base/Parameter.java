@@ -6,6 +6,10 @@ import org.springframework.data.domain.Page;
 
 import xyz.mint123.lemon.core.util.IdGen;
 
+/**
+ *@author lemon
+ *@version 2018-1-22
+ */
 @SuppressWarnings("serial")
 public class Parameter implements Serializable {
 

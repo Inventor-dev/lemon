@@ -18,7 +18,7 @@ public class DataBasePasswordGen {
 	/**
 	 * 钥匙长度
 	 */
-	private static final int keySize = 512;
+	private static final int  KEY_SIAE= 512;
 	
 	/**
 	 * 生成钥匙
@@ -27,7 +27,7 @@ public class DataBasePasswordGen {
 	 * @throws NoSuchProviderException
 	 */
 	public static String[] genKeyPair() throws NoSuchAlgorithmException, NoSuchProviderException{
-		return ConfigTools.genKeyPair(keySize);
+		return ConfigTools.genKeyPair(KEY_SIAE);
 	}
 	
 	

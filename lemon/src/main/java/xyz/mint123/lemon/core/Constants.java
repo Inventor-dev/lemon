@@ -10,7 +10,7 @@ public class Constants {
 	 * 通用异常头<br>
      * 程序发生了异常
 	 */
-	public static final String Exception_Head = "SOME ERRORS OCCURED! AS FOLLOWS :";
+	public static final String   EXCEPTION_HEAD = "SOME ERRORS OCCURED! AS FOLLOWS :";
 	/**
 	 * 缓存命名空间
 	 */

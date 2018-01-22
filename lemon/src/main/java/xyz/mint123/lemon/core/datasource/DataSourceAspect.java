@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.core.dataSource;
+package xyz.mint123.lemon.core.datasource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

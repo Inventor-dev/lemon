@@ -42,33 +42,54 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class JedisConfiguration extends CachingConfigurerSupport {
 	
 	String  prefix = Constants.CACHE_NAMESPACE + "M:";
-	
-	// redis host
+
+    /**
+     *  redis host
+     */
 	private String host;
-	// redis 端口
+    /**
+     * redis 端口
+     */
 	private int port;
-	// redis 密码
+    /**
+     * redis 密码
+     */
 	private String password;
-	// Redis 库
+    /**
+     * Redis 库
+     */
 	private int database;
-	// redis 超时 时间
+    /**
+     * redis 超时 时间
+     */
 	private int timeout;
-	// redis 最大链接数
+    /**
+     * redis 最大链接数
+     */
 	private int maxTotal;
-	// redis 最大等待时间
+    /**
+     * redis 最大等待时间
+     */
 	private int maxWaitMillist;
-	// 最大空闲链接数
+    /**
+     * 最大空闲链接数
+     */
 	private int maxIdle;
-	// 最小空闲链接数
+    /**
+     *  最小空闲链接数
+     */
 	private int minIdle;
-	// 开启事务
+    /**
+     * 开启事务
+     */
 	private boolean enableTransaction;
 
 
-	@Bean
+	@Bean @Override
 	public KeyGenerator keyGenerator() {
 		return new KeyGenerator() {
 			/** 重写生成key方法 */
+			@Override
 			public Object generate(Object o, Method method, Object... objects) {
 				StringBuilder sb = new StringBuilder(prefix);
 				CacheConfig cacheConfig = o.getClass().getAnnotation(CacheConfig.class);

@@ -15,10 +15,14 @@ import xyz.mint123.lemon.showcase.entity.EmployeeEntity;
  */
 @Repository
 public class EmployeeRepertory {
-	// 员工集合
+	/**
+	 * 员工集合
+	 */
 	private final ConcurrentMap<Long,EmployeeEntity> repertory = new ConcurrentHashMap<Long, EmployeeEntity>();
-	//ID 生成器
-	private final static AtomicLong idGen = new AtomicLong();
+    /**
+     * ID 生成器
+     */
+	private final static AtomicLong ID_GEN = new AtomicLong();
 
 	/**
 	 * 员工保存
@@ -27,7 +31,7 @@ public class EmployeeRepertory {
 	 */
 	public boolean save(EmployeeEntity entity) {
 		if(null == entity.getId()){
-			entity.setId(idGen.incrementAndGet());
+			entity.setId(ID_GEN.incrementAndGet());
 		}
 		return repertory.put(entity.getId(), entity)==null;
 	}
