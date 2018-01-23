@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.alibaba.druid.filter.Filter;
@@ -25,7 +29,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ConfigurationProperties(prefix = "db")
-public class DataSourceConfiguration {
+public class DruidConfiguration {
 
 	/**
 	 * JDBC 驱动
@@ -177,10 +181,35 @@ public class DataSourceConfiguration {
 		return dataSource;
 	}
 
-    public SqlSessionFactoryBean sqlSessionFactoryBean(){
-		return  null;
+
+	/**
+	 * Druid 监控 servlet
+	 * @return
+	 */
+	@Bean
+	public ServletRegistrationBean druidStatViewServlet(){
+		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
+		registrationBean.addInitParameter("allow","127.0.0.1");
+		registrationBean.addInitParameter("deny","192.0.0.1");
+		registrationBean.addInitParameter("loginUsername","druid");
+		registrationBean.addInitParameter("loginPassword","druid");
+		registrationBean.addInitParameter("resetEnable","false");
+		return registrationBean;
 	}
 
+	/**
+	 * Druid 监控 过滤器
+	 * @return
+	 */
+	@Bean
+	public FilterRegistrationBean druidStatFilter(){
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean(new WebStatFilter());
+		registrationBean.addUrlPatterns("/*");
+		registrationBean.addInitParameter("exclusions","*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
+		registrationBean.addInitParameter("profileEnable","true");
+		return registrationBean;
+
+	}
 
 
 	public String getDriver() {
@@ -311,12 +340,6 @@ public class DataSourceConfiguration {
 	public void setMaxWait(long maxWait) {
 		this.maxWait = maxWait;
 	}
-	
-
-	
 
 
-	
-	
-	
 }
