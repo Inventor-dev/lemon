@@ -127,7 +127,16 @@
 		</dependency>
 		
 		<!-- util end -->
-		
+
+
+		<!-- J2EE begin -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<!-- J2EE end -->
+
+
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>

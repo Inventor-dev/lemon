@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import com.alibaba.druid.filter.Filter;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.pool.DruidDataSource;
-import xyz.mint123.lemon.core.datasource.RoutingDataSource;
+import xyz.mint123.lemon.core.support.datasource.RoutingDataSource;
 
 import javax.sql.DataSource;
 
