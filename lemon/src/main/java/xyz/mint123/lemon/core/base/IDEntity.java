@@ -9,8 +9,12 @@ import java.io.Serializable;
  */
 public class IDEntity<T extends Serializable> implements Serializable {
 
-    private T id;
+    private static final long serialVersionUID = 1L;
 
+    /**
+     * 主键
+     */
+    private T id;
 
     public T getId() {
         return id;
@@ -19,7 +23,6 @@ public class IDEntity<T extends Serializable> implements Serializable {
     public void setId(T id) {
         this.id = id;
     }
-
 
     public IDEntity() {
         super();
@@ -30,9 +33,13 @@ public class IDEntity<T extends Serializable> implements Serializable {
         this.id = id;
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
+    /**
+     * equals <br/>
+     * 非同一个指针时会比对对象的 类型 、id
+     * @param obj
+     * @return
+     */
+    public boolean equalsId(Object obj) {
         if (null == obj) {
             return false;
         }
@@ -46,4 +53,6 @@ public class IDEntity<T extends Serializable> implements Serializable {
         return null == this.getId() ? false : this.getId().equals(that.getId());
 
     }
+
+
 }
