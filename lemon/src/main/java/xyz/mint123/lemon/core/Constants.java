@@ -14,5 +14,5 @@ public class Constants {
 	/**
 	 * 缓存命名空间
 	 */
-	public static final String CACHE_NAMESPACE = "Lemon";
+	public static final String CACHE_NAMESPACE = "lemon";
 }

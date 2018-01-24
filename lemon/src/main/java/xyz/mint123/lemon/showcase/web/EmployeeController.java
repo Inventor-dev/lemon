@@ -43,7 +43,7 @@ public class EmployeeController {
 		};
 		return entity;
 	}
-	
+
 	@GetMapping("/test")
 	public Collection<String> test(){
 		EmployeeEntity entity = new EmployeeEntity();
