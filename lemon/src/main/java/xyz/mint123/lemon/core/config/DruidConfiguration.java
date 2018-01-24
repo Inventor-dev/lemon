@@ -32,6 +32,10 @@ import javax.sql.DataSource;
 public class DruidConfiguration {
 
 	/**
+	 * 公钥
+	 */
+	private static final String  publicKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIPTQMzOoww0YRGKpGo7yfIcY5NhDzQ6bVW2ZYslB2ek2+P+A4sNRkJeMepGn5voVq3wi2pdTRtaQhfWBHMo4ckCAwEAAQ==";
+	/**
 	 * JDBC 驱动
 	 */
 	private String driver;
@@ -51,11 +55,6 @@ public class DruidConfiguration {
 	private String readPassword;
 
 	/**
-	 * 读取密码公钥
-	 */
-	private String readKey;
-
-	/**
 	 * 写入 url
 	 */
 	private String writeUrl;
@@ -69,11 +68,6 @@ public class DruidConfiguration {
 	 * 写入 密码
 	 */
 	private String writePassword;
-
-	/**
-	 * 写入密码公钥
-	 */
-	private String writeKey;
 
 	/**
 	 * 初始链接数
@@ -130,7 +124,7 @@ public class DruidConfiguration {
 		filters.add(statFilter);
 		readDataSource.setProxyFilters(filters);
 		readDataSource.setFilters("config");
-		readDataSource.setConnectionProperties("config.decrypt=true;config.decrypt.key=" + readKey);
+		readDataSource.setConnectionProperties("config.decrypt=true;config.decrypt.key=" + publicKey);
 		return readDataSource;
 	}
 
@@ -155,7 +149,7 @@ public class DruidConfiguration {
 		ArrayList<Filter> filters = new ArrayList<Filter>();
 		filters.add(statFilter);
 		writeDataSource.setFilters("config");
-		writeDataSource.setConnectionProperties("config.decrypt=true;config.decrypt.key=" + writeKey);
+		writeDataSource.setConnectionProperties("config.decrypt=true;config.decrypt.key=" + publicKey);
 		return writeDataSource;
 	}
 
@@ -251,17 +245,6 @@ public class DruidConfiguration {
 		this.readPassword = readPassword;
 	}
 
-
-	public String getReadKey() {
-		return readKey;
-	}
-
-
-	public void setReadKey(String readKey) {
-		this.readKey = readKey;
-	}
-
-
 	public String getWriteUrl() {
 		return writeUrl;
 	}
@@ -290,17 +273,6 @@ public class DruidConfiguration {
 	public void setWritePassword(String writePassword) {
 		this.writePassword = writePassword;
 	}
-
-
-	public String getWriteKey() {
-		return writeKey;
-	}
-
-
-	public void setWriteKey(String writeKey) {
-		this.writeKey = writeKey;
-	}
-
 
 	public int getInitialSize() {
 		return initialSize;
