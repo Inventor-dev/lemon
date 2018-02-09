@@ -200,7 +200,7 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>application-dev.yml</excludes>
-                <excludes>application-production.yml</excludes>
+                <excludes>application-product.yml</excludes>
                 <excludes>application-test.yml</excludes>
             </resource>
 
