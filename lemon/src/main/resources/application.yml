@@ -1,62 +1,9 @@
-# -------- 服务配置 -------
-server:
-  port: 80
-  servlet:
-    context-path: /lemon
-
-# ------- 数据源配置 ---------
-db:
-#  驱动类
-  driver: com.mysql.jdbc.Driver
-#  读取数据源
-  read-url: jdbc:mysql://bdm274886632.my3w.com:3306/bdm274886632_db?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=PRC&useSSL=false
-  read-user-name: bdm274886632
-  read-password: czQED04coLKpYL8FrKE3C00JFtXq33U0L4es7p7CQgs9w/i2OjVhtfwcqFIsTeEURn3yYj7PPPeyakiuji2D2Q==
-# 写入数据源
-  write-url: jdbc:mysql://bdm274886632.my3w.com:3306/bdm274886632_db?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=PRC&useSSL=false
-  write-user-name: bdm274886632
-  write-password: czQED04coLKpYL8FrKE3C00JFtXq33U0L4es7p7CQgs9w/i2OjVhtfwcqFIsTeEURn3yYj7PPPeyakiuji2D2Q==
-# 链接池 初始大小
-  initial-size: 5
-#  最大活跃数
-  max-active: 20
-#  最小空闲数
-  min-idle: 5
-#  等待时间
-  max-wait: 60000
-
-#------ mybatis 配置 ----------
-mybatis:
-#  mapper 文件位置
-#  config-location:
-  type-aliases-package: xyz.mint123.lemon
-
-# ------  spring 配置 -----
 spring:
+#彩色控制台
   output:
-        ansi:
-          #彩色控制台
-          enabled: detect
-  # redis 配置
-  redis:
-    database: 0
-    host: 192.168.1.210
-    port: 6379
-    password:
-    jedis:
-      pool:
-        max-active: 8
-        max-idle: 8
-        min-idle: 0
-        #最大阻塞等待时间
-        max-wait: -1ms
-    timeout: 0ms
-  # spring session 配置
-  session:
-    redis:
-      namespace: lemon
-  #spring mvc
-  mvc:
-      view:
-        prefix: /
-        suffix: .html
+    ansi:
+    enabled: detect
+# 默认环境
+  profiles:
+    active: dev
+

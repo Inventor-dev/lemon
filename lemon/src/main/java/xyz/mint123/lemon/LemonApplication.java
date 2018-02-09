@@ -26,18 +26,6 @@ public class LemonApplication extends SpringBootServletInitializer {
 
 
 	public static void main(String[] args) {
-        System.out.println("");
-        System.out.println("");
-        System.out.println("     ╭────╮         ╭───╮   ╭──── ────╮      ╭───╮       ╭──────╮               ");
-        System.out.println("     ╰╮  ╭╯        /  ╭─╯   │    │    │     /     \\      │       \\          	");
-        System.out.println("      │  │        /   ╰─╮   │ ─     ─ │    │       │     │   _   │              ");
-        System.out.println("      │  │       │    ╭─╯   │   \\_/   │    │   O   │     │   │   │             ");
-        System.out.println("      │  │       │    ╰─╮   │         │    │   │   │     │   │   │              ");
-        System.out.println("     ╭╯  ╰────╮  │      │   │    │    │     \\     /      │   │   │             ");
-        System.out.println("     ╰────────╯  ╰──────╯   ╰────╯────╯      ╰───╯       ╰───┴───╯      v 1.0   ");
-        System.out.println("");
-        System.out.println("");
-
         SpringApplication.run(LemonApplication.class, args);
 	}
 

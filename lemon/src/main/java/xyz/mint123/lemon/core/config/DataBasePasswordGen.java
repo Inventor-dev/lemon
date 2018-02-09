@@ -63,6 +63,7 @@ public class DataBasePasswordGen {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
+//        String key ="MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAg9NAzM6jDDRhEYqkajvJ8hxjk2EPNDptVbZliyUHZ6Tb4/4Diw1GQl4x6kafm+hWrfCLal1NG1pCF9YEcyjhyQIDAQABAkBslKvyRl3cZqRxi24Dpr2fM6z9LtwUG/AEwpj/NH/V6K7bSR8av1o2dre0+Id5iHCSLSJSuVsZ+JJSv6Z4Nn4BAiEAz9D/7j0EC7J8Zu+kSfSXSQ6yblA+Nyt5WERQ5ok/esECIQCiY8ZacySrJJl8DEBE2J+0oLgLHCmFEuceq1266DbRCQIhAKakKRWYx825ahgAwfSrtURYDKx4m+sRaVRmM5kpJUYBAiAv/uFfVmzeEIE0wsI0FvqM/num/PnglQeubuPTHFMnUQIhAJdGZyYPVDkaW0Wk6ZwyNWV6O3+X8yhhecZWuVENxN8v";
         String key ="MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAg9NAzM6jDDRhEYqkajvJ8hxjk2EPNDptVbZliyUHZ6Tb4/4Diw1GQl4x6kafm+hWrfCLal1NG1pCF9YEcyjhyQIDAQABAkBslKvyRl3cZqRxi24Dpr2fM6z9LtwUG/AEwpj/NH/V6K7bSR8av1o2dre0+Id5iHCSLSJSuVsZ+JJSv6Z4Nn4BAiEAz9D/7j0EC7J8Zu+kSfSXSQ6yblA+Nyt5WERQ5ok/esECIQCiY8ZacySrJJl8DEBE2J+0oLgLHCmFEuceq1266DbRCQIhAKakKRWYx825ahgAwfSrtURYDKx4m+sRaVRmM5kpJUYBAiAv/uFfVmzeEIE0wsI0FvqM/num/PnglQeubuPTHFMnUQIhAJdGZyYPVDkaW0Wk6ZwyNWV6O3+X8yhhecZWuVENxN8v";
         System.out.println("请输入数据库密码:");
         Scanner scan = new Scanner(System.in);

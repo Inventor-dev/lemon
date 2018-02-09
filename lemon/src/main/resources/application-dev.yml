@@ -1,0 +1,56 @@
+# -------- 服务配置 -------
+server:
+  port: 80
+  servlet:
+    context-path: /lemon
+# ------  spring 配置 -----
+spring:
+# 数据源 配置
+  datasource:
+    druid:
+      driver: com.mysql.jdbc.Driver
+      url: jdbc:mysql://bdm274886632.my3w.com:3306/bdm274886632_db
+      username: bdm274886632
+      password: bdm274886632
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        allow: 127.0.0.1
+        login-username: druid
+        login-password: druid
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions:
+        profile-enable: true
+
+  # redis 配置
+  redis:
+    database: 0
+    host: 192.168.1.139
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+    timeout: 0ms
+# spring session 配置
+  session:
+    redis:
+      namespace: lemon
+#spring mvc
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+
+#------ mybatis 配置 ----------
+mybatis:
+  type-aliases-package: xyz.mint123.lemon
