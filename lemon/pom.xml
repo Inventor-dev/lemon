@@ -72,11 +72,11 @@
 
         <!-- druid  -->
 
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba</groupId>-->
+            <!--<artifactId>druid-spring-boot-starter</artifactId>-->
+            <!--<version>${druid.version}</version>-->
+        <!--</dependency>-->
              
         <!-- mysql jdbc -->
         <dependency>
@@ -194,15 +194,22 @@
         <!-- 打包环境配置文件处理  -->
         <resources>
 
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>application-dev.yml</excludes>
-                <excludes>application-product.yml</excludes>
-                <excludes>application-test.yml</excludes>
-            </resource>
+            <!-- 要排除的文件  -->
+           <resource>
+               <directory>src/main/resources/</directory>
+               <excludes>
+                   <exclude>application-dev.yml</exclude>
+                   <exclude>application-product.yml</exclude>
+                   <exclude>application-test.yml</exclude>
+               </excludes>
+           </resource>
 
+            <!-- 要引入的文件 -->
             <resource>
-                <directory>src/main/resources/application-${environment}.yml</directory>
+                <directory>src/main/resources/</directory>
+                <includes>
+                    <include>application-${environment}.yml</include>
+                </includes>
             </resource>
 
         </resources>
