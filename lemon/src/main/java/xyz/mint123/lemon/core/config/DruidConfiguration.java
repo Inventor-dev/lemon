@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import com.alibaba.druid.filter.Filter;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.context.annotation.Primary;
 import xyz.mint123.lemon.core.support.datasource.RoutingDataSource;
 
 import javax.sql.DataSource;
@@ -26,7 +28,10 @@ import javax.sql.DataSource;
  * @author YP
  * @version 2018年1月18日
  */
+@Configuration
 public class DruidConfiguration {
+
+
 
 
 }
