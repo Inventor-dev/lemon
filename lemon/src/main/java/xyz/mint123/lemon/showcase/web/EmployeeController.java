@@ -52,6 +52,7 @@ public class EmployeeController {
 		EmployeeEntity entity = new EmployeeEntity();
 		entity.setName("测试");
         CacheUtil.getInstance().getCache().put("test",entity);
+        redisUtils.put("test",entity,-1);
 		return CacheUtil.getInstance().getCacheNames();
 	}
 	
