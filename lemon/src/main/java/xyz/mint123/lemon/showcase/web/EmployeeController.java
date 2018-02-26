@@ -23,6 +23,7 @@ import xyz.mint123.lemon.showcase.repository.EmployeeRepertory;
 public class EmployeeController {
 	
 	private final EmployeeRepertory  repertory;
+
     @Autowired
 	private RedisUtils redisUtils;
 

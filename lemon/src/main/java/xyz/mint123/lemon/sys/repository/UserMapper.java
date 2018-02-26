@@ -10,7 +10,7 @@ import java.util.List;
  * @version 2018/1/24
  */
 @Mapper
-public interface UserRepository<User> {
+public interface UserMapper<User> {
 
     /**
      * 新增
@@ -39,7 +39,11 @@ public interface UserRepository<User> {
      * @param entity
      * @return
      */
-    @Select("select * from sys_user")
+    @Select("select id, name from sys_user")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "name",column = "name")
+    })
     List<User> selectList(User entity);
 
 
