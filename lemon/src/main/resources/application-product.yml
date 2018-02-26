@@ -8,7 +8,6 @@ spring:
 # 数据源 配置
   datasource:
     druid:
-      driver: com.mysql.jdbc.Driver
       url: jdbc:mysql://bdm274886632.my3w.com:3306/bdm274886632_db
       username: bdm274886632
       password: bdm274886632
@@ -27,29 +26,28 @@ spring:
         url-pattern: /*
         exclusions:
         profile-enable: true
-
   # redis 配置
   redis:
-    database: 0
     host: 192.168.1.139
     port: 6379
     password:
+    timeout: 3000ms
     jedis:
       pool:
         max-active: 8
         max-idle: 8
         min-idle: 0
         max-wait: -1ms
-    timeout: 0ms
 # spring session 配置
   session:
     redis:
-      namespace: lemon
+      namespace: lemon_session
 #spring mvc
   mvc:
     view:
       prefix: /
       suffix: .html
+
 
 #------ mybatis 配置 ----------
 mybatis:

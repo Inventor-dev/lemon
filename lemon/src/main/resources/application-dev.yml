@@ -28,20 +28,20 @@ spring:
         profile-enable: true
   # redis 配置
   redis:
-    host: 127.0.0.1
+    host: 192.168.1.139
     port: 6379
     password:
+    timeout: 3000ms
     jedis:
       pool:
         max-active: 8
         max-idle: 8
         min-idle: 0
         max-wait: -1ms
-    timeout: 0ms
 # spring session 配置
   session:
     redis:
-      namespace: lemon
+      namespace: lemon_session
 #spring mvc
   mvc:
     view:

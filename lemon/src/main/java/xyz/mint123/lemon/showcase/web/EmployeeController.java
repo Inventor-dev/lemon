@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import xyz.mint123.lemon.core.util.CacheUtil;
+import xyz.mint123.lemon.core.util.RedisUtils;
 import xyz.mint123.lemon.showcase.entity.EmployeeEntity;
 import xyz.mint123.lemon.showcase.repository.EmployeeRepertory;
 
@@ -22,7 +23,9 @@ import xyz.mint123.lemon.showcase.repository.EmployeeRepertory;
 public class EmployeeController {
 	
 	private final EmployeeRepertory  repertory;
-	
+    @Autowired
+	private RedisUtils redisUtils;
+
 	@Autowired
 	public EmployeeController(EmployeeRepertory repertory) {
 		super();
@@ -48,7 +51,7 @@ public class EmployeeController {
 	public Collection<String> test(){
 		EmployeeEntity entity = new EmployeeEntity();
 		entity.setName("测试");
-		CacheUtil.getInstance().getCache().put("test", entity );
+        CacheUtil.getInstance().getCache().put("test",entity);
 		return CacheUtil.getInstance().getCacheNames();
 	}
 	
