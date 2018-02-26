@@ -6,10 +6,10 @@
     <groupId>xyz.mint123</groupId>
     <artifactId>lemon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>lemon</name>
-    <description>Demo project for Spring Boot</description>
+    <description>A backstage base framework called lemon</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -31,22 +31,11 @@
     <dependencies>
 
         <!-- spring begin -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -57,6 +46,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -72,21 +67,17 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-
-
         <!-- common end -->
 
         <!-- dateSource begin -->
 
         <!-- druid  -->
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
         </dependency>
-             
-        <!-- mysql jdbc -->
+        <!-- mysql jdbc driver -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -94,11 +85,18 @@
 
         <!-- dateSource end -->
 
-        <!-- cache begin -->
+       <!-- persistence begin -->
+
         <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.version}</version>
         </dependency>
+
+        <!-- persistence end -->
+
+
+        <!-- cache begin -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -110,22 +108,17 @@
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.session</groupId>-->
-            <!--<artifactId>spring-session-data-redis</artifactId>-->
-        <!--</dependency>-->
-
-        <!-- cache end -->
-
-
-        <!-- 切面 begin -->
         <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
         </dependency>
 
-        <!-- 切面 end -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
 
+        <!-- cache end -->
 
         <!-- util begin -->
 
@@ -135,24 +128,29 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
-
-        <!-- 反射 -->
+        <!-- reflectasm -->
         <dependency>
             <groupId>com.esotericsoftware.reflectasm</groupId>
             <artifactId>reflectasm</artifactId>
             <version>${reflectasm.version}</version>
         </dependency>
-
+        <!-- aspectj  -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
         <!-- util end -->
 
-
         <!-- J2EE begin -->
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
+
         <!-- J2EE end -->
 
+        <!-- test begin -->
 
         <dependency>
             <groupId>io.projectreactor</groupId>
@@ -160,10 +158,9 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- test end -->
+
     </dependencies>
-
-
-    <!-- 多环境打包 -->
 
     <profiles>
         <!-- 开发环境 默认环境 -->
@@ -176,7 +173,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
-
         <!-- 生产环境 -->
         <profile>
             <id>production</id>
@@ -184,7 +180,6 @@
                 <environment>production</environment>
             </properties>
         </profile>
-
         <!-- 测试环境 -->
         <profile>
             <id>test</id>
@@ -195,18 +190,16 @@
 
     </profiles>
 
-
     <build>
+        <!-- 插件 -->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-
-        <!-- 打包环境配置文件处理  -->
+        <!-- 资源文件处理  -->
         <resources>
-
             <!-- 要排除的文件  -->
            <resource>
                <directory>src/main/resources/</directory>
@@ -216,7 +209,6 @@
                    <exclude>application-test.yml</exclude>
                </excludes>
            </resource>
-
             <!-- 要引入的文件 -->
             <resource>
                 <directory>src/main/resources/</directory>
@@ -224,7 +216,6 @@
                     <include>application-${environment}.yml</include>
                 </includes>
             </resource>
-
         </resources>
     </build>
 
@@ -251,7 +242,6 @@
             </snapshots>
         </repository>
     </repositories>
-
     <pluginRepositories>
         <pluginRepository>
             <id>ali-repos</id>
@@ -275,6 +265,5 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
 
 </project>
