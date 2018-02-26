@@ -29,4 +29,10 @@ public class UserController {
         return userService.selectList(entity);
     };
 
+    @GetMapping("/sys/user/one")
+    public User selectOne(){
+        return userService.selectOne("0");
+    };
+
+
 }
