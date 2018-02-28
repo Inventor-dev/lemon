@@ -24,6 +24,6 @@ public class ApplicationReady implements ApplicationListener<ApplicationReadyEve
         System.out.println("     ╭╯  ╰────╮  │      │   │    │    │     ╲     ╱      │   │   │             ");
         System.out.println("     ╰────────╯  ╰──────╯   ╰────╯────╯      ╰───╯       ╰───┴───╯      v 1.0   ");
         System.out.println("");
-        System.out.println("");
+        System.out.println("Welcome to use Lemon ");
     }
 }
