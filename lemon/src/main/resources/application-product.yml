@@ -10,7 +10,7 @@ spring:
     druid:
       url: jdbc:mysql://bdm274886632.my3w.com:3306/bdm274886632_db
       username: bdm274886632
-      password: bdm274886632
+      password: jJ3ERn07a5e9E+7pkYx3cral7HsoDvbruUVf82LAYz9CWO+IRuTnqOSj/I0s0q1DeRwHLHzCGo8x26KA7nqDyQ==
       initial-size: 5
       max-active: 20
       min-idle: 5
@@ -26,9 +26,15 @@ spring:
         url-pattern: /*
         exclusions:
         profile-enable: true
+      filter:
+        config:
+          enabled: true
+      filters: config
+      connection-properties: config.decrypt=true
+
   # redis 配置
   redis:
-    host: 192.168.1.139
+    host: 127.0.0.1
     port: 6379
     password:
     timeout: 3000ms
