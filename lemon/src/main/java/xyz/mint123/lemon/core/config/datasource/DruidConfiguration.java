@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.core.config;
+package xyz.mint123.lemon.core.config.datasource;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

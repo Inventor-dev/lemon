@@ -1,9 +1,10 @@
-package xyz.mint123.lemon.core.exception;
+package xyz.mint123.lemon.core.config.web;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import xyz.mint123.lemon.core.exception.BaseException;
 import xyz.mint123.lemon.core.result.ErrorResult;
 
 import javax.servlet.http.HttpServletRequest;

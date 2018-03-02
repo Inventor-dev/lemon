@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.core.config;
+package xyz.mint123.lemon.core.config.datasource;
 
 import java.lang.reflect.Method;
 import com.alibaba.fastjson.JSON;
