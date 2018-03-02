@@ -24,7 +24,7 @@ import xyz.mint123.lemon.core.Constants;
 /**
  * redis 缓存 配置 文件
  *
- * @author YP
+ * @author lemon
  * @version 2018年1月20日
  */
 @Configuration

@@ -10,7 +10,7 @@ import xyz.mint123.lemon.showcase.entity.EmployeeEntity;
 /**
  * 样例代码   数据仓储
  * {@link EmployeeEntity} {@link Repository}
- * @author YP 
+ * @author lemon
  * @version 2018年1月15日
  */
 @Repository

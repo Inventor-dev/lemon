@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 
 /**
  * Druid  数据源 配置
- * @author YP
+ * @author lemon
  * @version 2018年1月18日
  */
 @Configuration

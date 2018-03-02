@@ -9,7 +9,7 @@ import xyz.mint123.lemon.core.Constants;
 
 /**
  * 缓存工具类
- * @author YP
+ * @author lemon
  * @version 2018年1月20日
  */
 public class CacheUtil {

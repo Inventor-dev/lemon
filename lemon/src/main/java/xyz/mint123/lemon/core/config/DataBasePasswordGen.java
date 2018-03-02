@@ -10,7 +10,7 @@ import java.util.Scanner;
 import com.alibaba.druid.filter.config.ConfigTools;
 /**
  * 数据库密码生成器
- * @author YP
+ * @author lemon
  * @version 2018年1月19日
  */
 public class DataBasePasswordGen {

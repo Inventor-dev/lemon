@@ -2,7 +2,7 @@ package xyz.mint123.lemon.core;
 
 /**
  * 常量类
- * @author YP
+ * @author lemon
  * @version 2018年1月19日
  */
 public class Constants {

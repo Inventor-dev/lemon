@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
  * 获取数据源
- * @author YP
+ * @author lemon
  * @version 2018年1月19日
  */
 public class RoutingDataSource extends AbstractRoutingDataSource {

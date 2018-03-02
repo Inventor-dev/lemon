@@ -13,7 +13,7 @@ import xyz.mint123.lemon.showcase.repository.EmployeeRepertory;
 
 /**
  * 路由配置 demo
- * @author YP
+ * @author lemon
  * @version 2018年1月15日
  */
 @Configuration

@@ -3,7 +3,7 @@ package xyz.mint123.lemon.showcase.entity;
 import java.io.Serializable;
 /**
  * 样例实体  
- * @author YP
+ * @author lemon
  * @version 2018年1月15日
  */
 public class EmployeeEntity implements Serializable {

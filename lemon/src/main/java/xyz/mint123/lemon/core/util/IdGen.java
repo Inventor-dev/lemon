@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * 主键生成器
- * @author YP
+ * @author lemon
  * @version 2018年1月19日
  */
 public class IdGen {
