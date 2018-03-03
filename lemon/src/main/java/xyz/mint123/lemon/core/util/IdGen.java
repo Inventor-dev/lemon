@@ -10,7 +10,7 @@ import java.util.UUID;
 public class IdGen {
 
     /**
-     * 返回 UUID 去掉 -
+     * 返回 UUID 并去掉 -
      * @return
      */
 	public static String getId() {

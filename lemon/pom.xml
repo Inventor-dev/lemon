@@ -6,7 +6,7 @@
     <groupId>xyz.mint123</groupId>
     <artifactId>lemon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>lemon</name>
     <description>A backstage base framework called lemon</description>
@@ -175,9 +175,9 @@
         </profile>
         <!-- 生产环境 -->
         <profile>
-            <id>production</id>
+            <id>product</id>
             <properties>
-                <environment>production</environment>
+                <environment>product</environment>
             </properties>
         </profile>
         <!-- 测试环境 -->
