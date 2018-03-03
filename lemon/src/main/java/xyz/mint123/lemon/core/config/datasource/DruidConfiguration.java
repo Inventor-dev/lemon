@@ -2,8 +2,6 @@ package xyz.mint123.lemon.core.config.datasource;
 
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-
 /**
  * Druid  数据源 配置
  * @author lemon
