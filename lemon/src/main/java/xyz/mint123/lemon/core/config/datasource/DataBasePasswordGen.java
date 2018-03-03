@@ -14,8 +14,6 @@ import com.alibaba.druid.filter.config.ConfigTools;
  * @version 2018年1月19日
  */
 public class DataBasePasswordGen {
-
-
 	/**
 	 * 加密数据库密码
 	 * @param args

@@ -1,6 +1,7 @@
 package xyz.mint123.lemon.core.config.datasource;
 
 import java.lang.reflect.Method;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
@@ -21,6 +22,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.apache.commons.lang3.ArrayUtils;
 import xyz.mint123.lemon.core.Constants;
+
 /**
  * redis 缓存 配置 文件
  *
@@ -31,64 +33,62 @@ import xyz.mint123.lemon.core.Constants;
 @EnableCaching
 public class RedisCachingConfiguration extends CachingConfigurerSupport {
 
-    String prefix = Constants.CACHE_NAMESPACE + "M:";
+    private RedisConnectionFactory redisConnectionFactory;
 
+    private CacheProperties.Redis redisProperties;
+
+    RedisCachingConfiguration(CacheProperties cacheProperties, RedisConnectionFactory redisConnectionFactory) {
+        this.redisProperties = cacheProperties.getRedis();
+        this.redisConnectionFactory = redisConnectionFactory;
+    }
+
+    /**
+     * 重写key 生成规则
+     * @return
+     */
     @Bean
     @Override
     public KeyGenerator keyGenerator() {
-        return new KeyGenerator() {
-            /** 重写生成key方法 */
-            @Override
-            public Object generate(Object target, Method method, Object... params) {
-                StringBuilder sb = new StringBuilder(prefix);
-                CacheConfig cacheConfig = target.getClass().getAnnotation(CacheConfig.class);
-                Cacheable cacheable = method.getAnnotation(Cacheable.class);
-                CachePut cachePut = method.getAnnotation(CachePut.class);
-                CacheEvict cacheEvict = method.getAnnotation(CacheEvict.class);
-                if (cacheable != null) {
-                    String[] cacheNames = cacheable.value();
-                    if (ArrayUtils.isNotEmpty(cacheNames)) {
-                        sb.append(cacheNames[0]);
-                    }
-                } else if (cachePut != null) {
-                    String[] cacheNames = cachePut.value();
-                    if (ArrayUtils.isNotEmpty(cacheNames)) {
-                        sb.append(cacheNames[0]);
-                    }
-                } else if (cacheEvict != null) {
-                    String[] cacheNames = cacheEvict.value();
-                    if (ArrayUtils.isNotEmpty(cacheNames)) {
-                        sb.append(cacheNames[0]);
-                    }
+        return (Object target, Method method, Object... params) -> {
+            final String  prefix = redisProperties.getKeyPrefix() + "M:";
+            StringBuilder sb = new StringBuilder(prefix);
+            CacheConfig cacheConfig = target.getClass().getAnnotation(CacheConfig.class);
+            Cacheable cacheable = method.getAnnotation(Cacheable.class);
+            CachePut cachePut = method.getAnnotation(CachePut.class);
+            CacheEvict cacheEvict = method.getAnnotation(CacheEvict.class);
+            if (cacheable != null) {
+                String[] cacheNames = cacheable.value();
+                if (ArrayUtils.isNotEmpty(cacheNames)) {
+                    sb.append(cacheNames[0]);
                 }
-                if (cacheConfig != null && sb.toString().equals(prefix)) {
-                    String[] cacheNames = cacheConfig.cacheNames();
-                    if (ArrayUtils.isNotEmpty(cacheNames)) {
-                        sb.append(cacheNames[0]);
-                    }
+            } else if (cachePut != null) {
+                String[] cacheNames = cachePut.value();
+                if (ArrayUtils.isNotEmpty(cacheNames)) {
+                    sb.append(cacheNames[0]);
                 }
-                if (sb.toString().equals(prefix)) {
-                    sb.append(target.getClass().getName()).append(".").append(method.getName());
+            } else if (cacheEvict != null) {
+                String[] cacheNames = cacheEvict.value();
+                if (ArrayUtils.isNotEmpty(cacheNames)) {
+                    sb.append(cacheNames[0]);
                 }
-                sb.append(":");
-                if (params != null) {
-                    for (Object object : params) {
-                        sb.append(JSON.toJSONString(object));
-                    }
-                }
-                return sb.toString();
             }
+            if (cacheConfig != null && sb.toString().equals(prefix)) {
+                String[] cacheNames = cacheConfig.cacheNames();
+                if (ArrayUtils.isNotEmpty(cacheNames)) {
+                    sb.append(cacheNames[0]);
+                }
+            }
+            if (sb.toString().equals(prefix)) {
+                sb.append(target.getClass().getName()).append(".").append(method.getName());
+            }
+            sb.append(":");
+            if (params != null) {
+                for (Object object : params) {
+                    sb.append(JSON.toJSONString(object));
+                }
+            }
+            return sb.toString();
         };
-    }
-
-
-    private RedisConnectionFactory redisConnectionFactory;
-
-    private final CacheProperties cacheProperties;
-
-    RedisCachingConfiguration(CacheProperties cacheProperties,RedisConnectionFactory  redisConnectionFactory) {
-        this.cacheProperties = cacheProperties;
-        this.redisConnectionFactory = redisConnectionFactory;
     }
 
     /**
@@ -100,7 +100,6 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
         config = config.serializeValuesWith(RedisSerializationContext.SerializationPair
                 .fromSerializer(new GenericFastJsonRedisSerializer()));
-        CacheProperties.Redis redisProperties = this.cacheProperties.getRedis();
         if (redisProperties.getTimeToLive() != null) {
             config = config.entryTtl(redisProperties.getTimeToLive());
         }
