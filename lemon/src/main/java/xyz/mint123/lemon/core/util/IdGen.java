@@ -9,9 +9,12 @@ import java.util.UUID;
  */
 public class IdGen {
 
-	
+    /**
+     * 返回 UUID 去掉 -
+     * @return
+     */
 	public static String getId() {
-		return UUID.randomUUID().toString();
+		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 
 }
