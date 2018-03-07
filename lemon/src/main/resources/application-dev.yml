@@ -18,7 +18,7 @@ spring:
       stat-view-servlet:
         enabled: true
         url-pattern: /druid/*
-        allow: 127.0.0.1
+        allow: server.mint123.xyz
         login-username: druid
         login-password: druid
       web-stat-filter:
