@@ -33,7 +33,7 @@ spring:
       connection-properties: config.decrypt=true
   # redis 配置
   redis:
-    host: 127.0.0.1
+    host: server.mint123.xyz
     port: 6379
     password:
     timeout: 3000ms
