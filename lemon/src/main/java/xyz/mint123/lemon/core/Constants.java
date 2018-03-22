@@ -11,8 +11,23 @@ public class Constants {
      * 程序发生了异常
 	 */
 	public static final String   EXCEPTION_HEAD = "SOME ERRORS OCCURED! AS FOLLOWS :";
-	/**
-	 * 缓存命名空间
-	 */
-	public static final String CACHE_NAMESPACE = "lemon";
+    /**
+     * 数据状态标识 - 正常
+     */
+    public static int DATA_FLAG_NORMAL = 0;
+    /**
+     * 数据状态标识 - 删除
+     */
+    public static int DATA_FLAG_DELETE = 1;
+    /**
+     * 数据状态标识 - 临时数据
+     */
+    public static int DATA_FLAG_TEMP = 2;
+
+
+
+
+
+
+
 }
