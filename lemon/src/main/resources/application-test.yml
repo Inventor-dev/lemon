@@ -1,8 +1,6 @@
 # -------- 服务配置 -------
 server:
   port: 80
-  servlet:
-    context-path: /lemon
 # ------  spring 配置 -----
 spring:
 # 数据源 配置
@@ -18,7 +16,7 @@ spring:
       stat-view-servlet:
         enabled: true
         url-pattern: /druid/*
-        allow: 127.0.0.1
+        allow: server.mint123.xyz
         login-username: druid
         login-password: druid
       web-stat-filter:
@@ -31,9 +29,10 @@ spring:
           enabled: true
       filters: config
       connection-properties: config.decrypt=true
+
   # redis 配置
   redis:
-    host: server.mint123.xyz
+    host: 127.0.0.1
     port: 6379
     password:
     timeout: 3000ms
@@ -47,13 +46,6 @@ spring:
   session:
     redis:
       namespace: lemon_session
-#spring mvc
-  mvc:
-    view:
-      prefix: /
-      suffix: .html
-
-
 #------ mybatis 配置 ----------
 mybatis:
   type-aliases-package: xyz.mint123.lemon

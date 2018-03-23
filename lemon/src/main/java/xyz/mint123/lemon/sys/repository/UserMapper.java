@@ -2,6 +2,8 @@ package xyz.mint123.lemon.sys.repository;
 
 import org.apache.ibatis.annotations.*;
 import java.util.List;
+
+import xyz.mint123.lemon.core.base.BaseMapper;
 import xyz.mint123.lemon.sys.entity.User;
 /**
  * SYS 用户仓库
@@ -9,7 +11,7 @@ import xyz.mint123.lemon.sys.entity.User;
  * @version 2018/1/24
  */
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 新增

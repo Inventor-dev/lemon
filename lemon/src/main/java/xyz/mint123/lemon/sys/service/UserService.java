@@ -1,7 +1,5 @@
 package xyz.mint123.lemon.sys.service;
 
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.mint123.lemon.core.base.BaseService;
 import xyz.mint123.lemon.sys.entity.User;
@@ -15,7 +13,7 @@ import java.util.List;
  * @version 2018/2/26
  */
 @Service
-public class UserService extends BaseService<UserMapper> {
+public class UserService extends BaseService<User,UserMapper> {
 
    public List<User> selectList(User entity){
         return mapper.selectList(entity);

@@ -1,6 +1,7 @@
 package xyz.mint123.lemon.core.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -24,13 +25,14 @@ public class RedisUtils {
     @Resource
     protected  HashOperations<String, String, Object> hashOperations;
 
-
+    @Autowired
+    protected CacheProperties cacheProperties;
     /**
      * 缓存 前缀
      * @return
      */
     protected String getRedisKey(){
-        return Constants.CACHE_NAMESPACE;
+        return cacheProperties.getRedis().getKeyPrefix();
     }
 
     /**
