@@ -29,12 +29,15 @@ public class UserController extends BaseController{
 
 	@GetMapping("/{id}")
     public Mono<User> getUser(@PathVariable String id) {
-        return Mono.just(userService.selectOne(id));
+        User user = userService.selectOne(id);
+        return Mono.just(user);
+
     }
 
     @GetMapping("/list")
     public Flux<User> selectList(User entity) {
-        return Flux.fromIterable(userService.selectList(entity));
+        List<User> users = userService.selectList(entity);
+        return Flux.fromIterable(users);
     }
 
 

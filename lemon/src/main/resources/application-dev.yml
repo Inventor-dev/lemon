@@ -42,10 +42,16 @@ spring:
         max-idle: 8
         min-idle: 0
         max-wait: -1ms
+#  缓存配置
+  cache:
+    cache-names: lemon
+    redis:
+      time-to-live: 6000ms
 # spring session 配置
   session:
     redis:
       namespace: lemon_session
+
 #------ mybatis 配置 ----------
 mybatis:
   type-aliases-package: xyz.mint123.lemon

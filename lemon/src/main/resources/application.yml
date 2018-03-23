@@ -6,4 +6,3 @@ spring:
 # 默认环境
   profiles:
     active: dev
-
