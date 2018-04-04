@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.core.config.datasource;
+package xyz.mint123.lemon.core.config;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;

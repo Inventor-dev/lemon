@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.core.config.serializer;
+package xyz.mint123.lemon.core.config;
 
 
 /**

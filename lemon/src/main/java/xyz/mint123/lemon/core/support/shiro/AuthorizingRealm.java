@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.support.shiro;
+package xyz.mint123.lemon.core.support.shiro;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -6,7 +6,6 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.subject.PrincipalCollection;
-import xyz.mint123.lemon.sys.entity.User;
 
 /**
  * 系统授权认证实现类

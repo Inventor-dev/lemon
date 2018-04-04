@@ -1,9 +1,9 @@
-package xyz.mint123.lemon.core.config.security;
+package xyz.mint123.lemon.core.config;
 
 import org.apache.shiro.realm.Realm;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import xyz.mint123.lemon.support.shiro.AuthorizingRealm;
+import xyz.mint123.lemon.core.support.shiro.AuthorizingRealm;
 
 /**
  * shiro 配置

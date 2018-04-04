@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.core.config.datasource;
+package xyz.mint123.lemon.core.config;
 
 import org.springframework.context.annotation.Configuration;
 

@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.support.shiro;
+package xyz.mint123.lemon.core.support.shiro;
 
 /**
  * 登陆令牌
