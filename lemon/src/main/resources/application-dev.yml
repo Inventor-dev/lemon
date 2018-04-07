@@ -53,11 +53,21 @@ spring:
   session:
     redis:
       namespace: lemon_session
+#模板引擎配置
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
 
 #------ mybatis 配置 ----------
 mybatis:
   type-aliases-package: xyz.mint123.lemon
 #  shiro 配置
 shiro:
-  loginUrl: /login
+  loginUrl: /login.html
   unauthorizedUrl: /druid
+
