@@ -1,5 +1,6 @@
 package xyz.mint123.lemon.core.base;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.apache.ibatis.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.util.annotation.Nullable;
@@ -9,10 +10,9 @@ import reactor.util.annotation.Nullable;
  * @author lemon
  * @version 2018/3/22
  */
-public class BaseService<E extends DataEntity,M extends BaseMapper<E>> {
+public class BaseService<E extends DataEntity,M extends BaseMapper<E>> extends ServiceImpl<M,E> {
 
-    @Autowired
-    protected M mapper;
+
 
 
 }

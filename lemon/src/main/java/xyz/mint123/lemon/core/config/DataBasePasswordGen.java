@@ -23,7 +23,7 @@ public class DataBasePasswordGen {
 		System.out.println("请输入数据库密码:");
         Scanner scan = new Scanner(System.in);
         String plainText = scan.nextLine();
-        String encrypt = ConfigTools.encrypt("buzhidao");
+        String encrypt = ConfigTools.encrypt(plainText);
 		System.out.println("password:" + encrypt);
         scan.close();
 	}

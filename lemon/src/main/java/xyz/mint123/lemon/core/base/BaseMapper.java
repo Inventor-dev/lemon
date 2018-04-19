@@ -1,11 +1,11 @@
 package xyz.mint123.lemon.core.base;
 
 /**
- * mapper
+ * base mapper
  * @author lemon
  * @version 2018/3/23
  */
-public interface BaseMapper<E extends DataEntity> {
+public interface BaseMapper<E extends DataEntity> extends com.baomidou.mybatisplus.mapper.BaseMapper<E> {
 
 
 }

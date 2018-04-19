@@ -1,5 +1,6 @@
 package xyz.mint123.lemon.sys.entity;
 
+import com.baomidou.mybatisplus.annotations.TableName;
 import xyz.mint123.lemon.core.base.BaseEntity;
 
 /**
@@ -7,6 +8,7 @@ import xyz.mint123.lemon.core.base.BaseEntity;
  * @author lemon
  * @version 2018/1/23
  */
+@TableName("sys_user")
 public class User extends BaseEntity<String> {
 
     private static final long serialVersionUID = -7717224603868173832L;

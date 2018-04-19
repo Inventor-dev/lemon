@@ -1,5 +1,7 @@
 package xyz.mint123.lemon.core.base;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,6 +15,10 @@ public class BaseEntity<T extends Serializable> extends DataEntity {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 主键
+     */
+    @TableId(value = "id")
     private T id;
 
     public BaseEntity() {

@@ -5,12 +5,19 @@ server:
     context-path: /lemon
 # ------  spring 配置 -----
 spring:
+  aop:
+    proxy-target-class: true
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 # 数据源 配置
   datasource:
     druid:
-      url: jdbc:mysql://bdm274886632.my3w.com:3306/bdm274886632_db
-      username: bdm274886632
-      password: jJ3ERn07a5e9E+7pkYx3cral7HsoDvbruUVf82LAYz9CWO+IRuTnqOSj/I0s0q1DeRwHLHzCGo8x26KA7nqDyQ==
+      url: jdbc:mysql://lime123.xyz:3306/lemon
+      username: lemon
+      password: IFWGv0xQSNUHHbgrRe9vhlb5Gb4+ekBkQpairWhDhd8lkbFTwk5/PMMHreBLMMsdHpkl3IZH+CpyMt9RgYXS4w==
       initial-size: 5
       max-active: 20
       min-idle: 5
@@ -53,6 +60,29 @@ spring:
   session:
     redis:
       namespace: lemon_session
+
+#------ mybatis plus 配置 ----------
+mybatis-plus:
+  type-aliases-package: xyz.mint123.lemon
+  global-config:
+#  主键类型 uuid
+    id-type: 3
+#    驼峰下划线转换
+    db-column-underline: true
+#    逻辑删除配置
+    logic-delete-value: 1
+    logic-not-delete-value: 0
+#    字段填充
+    meta-object-handler: xyz.mint123.lemon.core.support.mybatisplus.MetaObjectHandler
+
+  configuration:
+    map-underscore-to-camel-case: true
+
+#  shiro 配置
+shiro:
+  loginUrl: /login.html
+  unauthorizedUrl: /druid
+
 #模板引擎配置
   thymeleaf:
     prefix: classpath:/templates/
@@ -63,11 +93,4 @@ spring:
     servlet:
       content-type: text/html
 
-#------ mybatis 配置 ----------
-mybatis:
-  type-aliases-package: xyz.mint123.lemon
-#  shiro 配置
-shiro:
-  loginUrl: /login.html
-  unauthorizedUrl: /druid
 

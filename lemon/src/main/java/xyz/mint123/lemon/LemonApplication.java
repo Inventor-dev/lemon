@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 import javax.servlet.ServletException;
@@ -15,7 +16,6 @@ import javax.servlet.ServletException;
  * @version 2018-1-22
  */
 @SpringBootApplication
-@ServletComponentScan
 public class LemonApplication extends SpringBootServletInitializer {
 
     @Override

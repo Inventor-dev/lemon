@@ -1,5 +1,10 @@
 package xyz.mint123.lemon.core.base;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.baomidou.mybatisplus.annotations.Version;
+import com.baomidou.mybatisplus.enums.FieldFill;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,7 +12,6 @@ import java.util.Date;
  * 数据基类
  * @author lemon
  * @version 2018/3/22
- * TODO 创建者,修改者 换为 机构记录
  */
 public class DataEntity implements Serializable {
 
@@ -16,26 +20,31 @@ public class DataEntity implements Serializable {
     /**
      * 创建者
      */
+    @TableField(fill = FieldFill.INSERT)
     private String creator;
 
     /**
      * 创建日期
      */
+    @TableField(value = "date_created",fill = FieldFill.INSERT)
     private Date dateCreated;
 
     /**
      * 创建者
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String mender;
 
     /**
      * 修改日期
      */
+    @TableField(value = "date_modified",fill = FieldFill.INSERT_UPDATE)
     private Date dateModified;
 
     /**
      * 版本
      */
+    @Version
     private Long version;
 
     /**
@@ -48,6 +57,8 @@ public class DataEntity implements Serializable {
      * 删除 @Link Constants.DATA_FLAG_DELETE
      * 临时 @Link Constants.DATA_FLAG_TEMP
      */
+    @TableLogic
+    @TableField("data_flag")
     private Integer dataFlag;
 
     public DataEntity() {

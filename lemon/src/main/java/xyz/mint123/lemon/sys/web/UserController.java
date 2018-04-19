@@ -21,11 +21,8 @@ import java.util.List;
 @RequestMapping("/sys/user")
 public class UserController extends BaseController{
 
+    @Autowired
 	private UserService userService;
-	
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
 	@GetMapping("/{id}")
     public Mono<User> getUser(@PathVariable String id) {

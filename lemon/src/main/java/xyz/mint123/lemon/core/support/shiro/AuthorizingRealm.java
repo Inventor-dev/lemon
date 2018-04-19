@@ -38,4 +38,8 @@ public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         return null;
     }
+
+
+
+
 }
