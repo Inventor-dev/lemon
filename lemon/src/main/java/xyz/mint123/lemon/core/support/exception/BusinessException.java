@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.core.exception;
+package xyz.mint123.lemon.core.support.exception;
 
 /**
  * 业务异常

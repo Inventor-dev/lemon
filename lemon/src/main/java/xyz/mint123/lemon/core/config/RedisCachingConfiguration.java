@@ -181,7 +181,5 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
     @Bean
     public ZSetOperations<String, Object> zSetOperations(RedisTemplate<String, Object> redisTemplate) {
         return redisTemplate.opsForZSet();
-
-
     }
 }

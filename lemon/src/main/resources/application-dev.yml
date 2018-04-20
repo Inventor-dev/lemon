@@ -56,10 +56,6 @@ spring:
     cache-names: lemon
     redis:
       time-to-live: 6000ms
-# spring session 配置
-  session:
-    redis:
-      namespace: lemon_session
 
 #------ mybatis plus 配置 ----------
 mybatis-plus:
@@ -81,7 +77,8 @@ mybatis-plus:
 #  shiro 配置
 shiro:
   loginUrl: /login.html
-  unauthorizedUrl: /druid
+  successUrl: /index.html
+  unauthorizedUrl: /403.html
 
 #模板引擎配置
   thymeleaf:
@@ -92,5 +89,7 @@ shiro:
     cache: false
     servlet:
       content-type: text/html
+
+
 
 

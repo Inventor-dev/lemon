@@ -1,14 +1,21 @@
 package xyz.mint123.lemon.core.config;
 
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.mgt.SessionsSecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
+import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import xyz.mint123.lemon.core.support.shiro.AuthorizingRealm;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * shiro 配置
@@ -28,15 +35,13 @@ public class ShiroConfiguration {
     }
 
 
-    /**
-     * 保证实现了Shiro内部lifecycle函数的bean执行
-     * @return
-     */
     @Bean
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
-        return new LifecycleBeanPostProcessor();
+    public ShiroFilterChainDefinition shiroFilterChainDefinition() {
+        DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
+        chainDefinition.addPathDefinition("/druid/**", "anon");
+        chainDefinition.addPathDefinition("/**", "authc");
+        return chainDefinition;
     }
-
     /**
      * 方法级 AOP 权限检查
      * @return
@@ -48,17 +53,6 @@ public class ShiroConfiguration {
         //强制使用 CGlib
         proxyCreator.setProxyTargetClass(true);
         return proxyCreator;
-    }
-
-    /**
-     * 注解支持
-     * @return
-     */
-    @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SessionsSecurityManager sessionsSecurityManager) {
-        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(sessionsSecurityManager);
-        return authorizationAttributeSourceAdvisor;
     }
 
 

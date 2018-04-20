@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.core.result;
+package xyz.mint123.lemon.core.support.result;
 
 import java.io.Serializable;
 

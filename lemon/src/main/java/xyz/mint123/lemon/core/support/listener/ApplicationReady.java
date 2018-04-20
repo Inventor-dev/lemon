@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.core.listener;
+package xyz.mint123.lemon.core.support.listener;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
