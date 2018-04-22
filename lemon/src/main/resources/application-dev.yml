@@ -57,6 +57,7 @@ spring:
     redis:
       time-to-live: 6000ms
 
+
 #------ mybatis plus 配置 ----------
 mybatis-plus:
   type-aliases-package: xyz.mint123.lemon
@@ -89,6 +90,7 @@ shiro:
     cache: false
     servlet:
       content-type: text/html
+
 
 
 

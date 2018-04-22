@@ -18,7 +18,7 @@ public class SystemController extends BaseController {
      * 首页
      * @return
      */
-    @GetMapping({"/","index","index.html"})
+    @GetMapping("/index.html")
     public String index(ModelMap modelMap){
         return "sys/index";
     }
@@ -33,6 +33,15 @@ public class SystemController extends BaseController {
         return "sys/login";
     }
 
+    /**
+     * 登录 表单
+     * @param modelMap
+     * @return
+     */
+    @GetMapping("/loginForm.html")
+    public String loginFrom(ModelMap modelMap){
+        return "sys/loginForm";
+    }
 
 
 
