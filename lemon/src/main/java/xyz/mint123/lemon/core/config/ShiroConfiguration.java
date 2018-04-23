@@ -38,9 +38,17 @@ public class ShiroConfiguration {
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
-        chainDefinition.addPathDefinition("/static/**", "anon");
+//        静态文件处理
+        chainDefinition.addPathDefinition("/css/**", "anon");
+        chainDefinition.addPathDefinition("/fonts/**", "anon");
+        chainDefinition.addPathDefinition("/img/**", "anon");
+        chainDefinition.addPathDefinition("/js/**", "anon");
+//        德鲁伊 数据库监控
         chainDefinition.addPathDefinition("/druid/**", "anon");
+//        登录表单
         chainDefinition.addPathDefinition("/loginForm.html", "anon");
+        chainDefinition.addPathDefinition("/login", "anon");
+//        所有路径进行登录验证
         chainDefinition.addPathDefinition("/**", "authc");
         return chainDefinition;
     }

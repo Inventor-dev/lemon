@@ -1,23 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
-    <title>登录页面</title>
+    <title>Lemon-登录</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link href="static/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
-    <link href="static/css/flat-ui.min.css" rel="stylesheet">
-
-    <link rel="icon" href="img/favicon.ico">
-    <!--&lt;!&ndash;[if lt IE 9]>-->
-    <!--<script src="static/js/vendor/html5shiv.js"></script>-->
-    <!--<script src="static/js/vendor/respond.min.js"></script>-->
-    <!--<![endif]&ndash;&gt;-->
+    <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/flat-ui.min.css" rel="stylesheet">
+    <link rel="icon" href="img/favicon.png">
+    <!--[if lt IE 9]>
+    <script src="js/vendor/html5shiv.js"></script>
+    <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        .container {width: 970px !important;}
+        .login{margin-bottom: 0px; margin-top: 77px;}
+        .login-icon{ top: 195px; }
+        .login-icon h4{text-align: center; }
+        .login-frame{  width: 359px; height: 250px; position: relative;  background-color: #edeff1; border-radius: 6px;}
+    </style>
 </head>
 <body>
-    <iframe src="loginForm.html"></iframe>
-
-    <!--<script src="static/js/vendor/jquery.min.js"></script>-->
-    <!--<script src="static/js/vendor/video.js"></script>-->
-    <!--<script src="static/js/flat-ui.min.js"></script>-->
+    <div class="container">
+        <div class="login">
+            <div class="login-screen">
+                 <div class="login-icon">
+                    <img src="img/login/icon.svg" alt="Lemon" />
+                    <h4>欢迎使用<small>Lemon</small></h4>
+                 </div>
+                <iframe class="login-frame" src="loginForm.html"></iframe>
+            </div>
+        </div>
+    </div>
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/video.js"></script>
+    <script src="js/flat-ui.min.js"></script>
 </body>
 </html>

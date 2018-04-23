@@ -1,7 +1,8 @@
 package xyz.mint123.lemon.core.config;
 
-
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-public class WebConfig extends WebMvcConfigurerAdapter {
+/**
+ * WEB 配置
+ * @author Mint
+ */
+public class WebConfig {
 }

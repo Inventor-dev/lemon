@@ -1,8 +1,6 @@
 # -------- 服务配置 -------
 server:
   port: 80
-  servlet:
-    context-path: /lemon
 # ------  spring 配置 -----
 spring:
   aop:
@@ -56,8 +54,13 @@ spring:
     cache-names: lemon
     redis:
       time-to-live: 6000ms
-
-
+ #模板引擎配置
+  thymeleaf:
+   mode: HTML5
+   encoding: UTF-8
+   cache: false
+   servlet:
+     content-type: text/html
 #------ mybatis plus 配置 ----------
 mybatis-plus:
   type-aliases-package: xyz.mint123.lemon
@@ -71,26 +74,13 @@ mybatis-plus:
     logic-not-delete-value: 0
 #    字段填充
     meta-object-handler: xyz.mint123.lemon.core.support.mybatisplus.MetaObjectHandler
-
   configuration:
     map-underscore-to-camel-case: true
-
 #  shiro 配置
 shiro:
   loginUrl: /login.html
   successUrl: /index.html
-  unauthorizedUrl: /403.html
-
-#模板引擎配置
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    mode: HTML5
-    encoding: UTF-8
-    cache: false
-    servlet:
-      content-type: text/html
-
+  unauthorizedUrl: /login.html
 
 
 
