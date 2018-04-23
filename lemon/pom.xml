@@ -33,6 +33,10 @@
     <dependencies>
 
         <!-- spring begin -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -45,16 +49,15 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -155,10 +158,7 @@
         </dependency>
 
         <!-- J2EE end -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+
 
         <!-- test begin -->
 
@@ -178,6 +178,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.8.RELEASE</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
