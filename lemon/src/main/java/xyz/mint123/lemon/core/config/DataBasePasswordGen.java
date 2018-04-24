@@ -1,13 +1,12 @@
 package xyz.mint123.lemon.core.config;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import com.alibaba.druid.filter.config.ConfigTools;
+
+import java.util.Scanner;
+
 /**
  * 在此处 生成 公钥 秘钥  和密码
  */
-import java.util.Scanner;
-
-import com.alibaba.druid.filter.config.ConfigTools;
 /**
  * 数据库密码生成器
  * @author lemon

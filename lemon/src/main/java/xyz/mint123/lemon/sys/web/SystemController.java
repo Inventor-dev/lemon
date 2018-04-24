@@ -69,4 +69,17 @@ public class SystemController extends BaseController {
         return "redirect:/index.html";
     }
 
+    /**
+     * 登出
+     * @return
+     */
+    @GetMapping("/logout")
+    public String logout(){
+        SecurityUtils.getSubject().logout();
+        return "redirect:/login.html";
+    }
+
+
+
+
 }
