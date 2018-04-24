@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Lemon-登录</title>
@@ -14,7 +14,7 @@
     <style type="text/css">
         .container {width: 970px !important;}
         .login{margin-bottom: 0px; margin-top: 77px;}
-        .login-icon{ top: 195px; }
+        .login-icon{ top: 195px;}
         .login-icon h4{text-align: center; }
         .login-frame{  width: 359px; height: 250px; position: relative;  background-color: #edeff1; border-radius: 6px;}
     </style>
@@ -24,10 +24,10 @@
         <div class="login">
             <div class="login-screen">
                  <div class="login-icon">
-                    <img src="img/login/icon.svg" alt="Lemon" />
+                    <img th:src="@{/img/login/icon.svg}" alt="Lemon" />
                     <h4>欢迎使用<small>Lemon</small></h4>
                  </div>
-                <iframe class="login-frame" src="loginForm.html"></iframe>
+                <iframe class="login-frame" th:src="@{/loginForm.html}" ></iframe>
             </div>
         </div>
     </div>

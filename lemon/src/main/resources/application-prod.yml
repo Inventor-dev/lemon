@@ -15,7 +15,7 @@ spring:
 # 数据源 配置
   datasource:
     druid:
-      url: jdbc:mysql://lime123.xyz:3306/lemon
+      url: jdbc:mysql://lime123.xyz:3306/lemon?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=PRC&useSSL=false
       username: lemon
       password: IFWGv0xQSNUHHbgrRe9vhlb5Gb4+ekBkQpairWhDhd8lkbFTwk5/PMMHreBLMMsdHpkl3IZH+CpyMt9RgYXS4w==
       initial-size: 5
@@ -56,7 +56,13 @@ spring:
     cache-names: lemon
     redis:
       time-to-live: 6000ms
-
+ #模板引擎配置
+  thymeleaf:
+   mode: HTML5
+   encoding: UTF-8
+   cache: false
+   servlet:
+     content-type: text/html
 #------ mybatis plus 配置 ----------
 mybatis-plus:
   type-aliases-package: xyz.mint123.lemon
@@ -70,22 +76,14 @@ mybatis-plus:
     logic-not-delete-value: 0
 #    字段填充
     meta-object-handler: xyz.mint123.lemon.core.support.mybatisplus.MetaObjectHandler
-
   configuration:
     map-underscore-to-camel-case: true
-
 #  shiro 配置
 shiro:
   loginUrl: /login.html
+  successUrl: /
+  unauthorizedUrl: /login.html
 
-#模板引擎配置
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    mode: HTML5
-    encoding: UTF-8
-    cache: false
-    servlet:
-      content-type: text/html
+
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <title>Lemon</title>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/index.html"><img class="logo" src="img/logo.svg" />Lemon</a>
+            <a class="navbar-brand" th:href="@{/index.html}" ><img class="logo" th:src="@{/img/logo.svg}" />Lemon</a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar"> </button>
         </div>
@@ -49,7 +49,7 @@
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header"><span class="fui-lock"></span>锁屏</li>
                         <li><a href="#"><span class="fui-resize"></span>全屏</a></li>
-                        <li><a href="#"><span class="fui-exit"></span>退出</a></li>
+                        <li><a th:href="@{/logout}"><span class="fui-exit"></span>退出</a></li>
                     </ul>
                 </li>
                 <li class=""><a href="#"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span></a></li>

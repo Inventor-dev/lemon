@@ -1,6 +1,8 @@
 # -------- 服务配置 -------
 server:
   port: 80
+  servlet:
+    context-path: /lemon
 # ------  spring 配置 -----
 spring:
   aop:
@@ -13,7 +15,7 @@ spring:
 # 数据源 配置
   datasource:
     druid:
-      url: jdbc:mysql://lime123.xyz:3306/lemon
+      url: jdbc:mysql://lime123.xyz:3306/lemon?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=PRC&useSSL=false
       username: lemon
       password: IFWGv0xQSNUHHbgrRe9vhlb5Gb4+ekBkQpairWhDhd8lkbFTwk5/PMMHreBLMMsdHpkl3IZH+CpyMt9RgYXS4w==
       initial-size: 5
@@ -79,7 +81,7 @@ mybatis-plus:
 #  shiro 配置
 shiro:
   loginUrl: /login.html
-  successUrl: /index.html
+  successUrl: /
   unauthorizedUrl: /login.html
 
 
