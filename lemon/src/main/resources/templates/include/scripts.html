@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Lemon</title>
+</head>
+<body>
+<th:block th:fragment="common_scripts(scripts)" >
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/video.js"></script>
+    <script src="js/flat-ui.min.js"></script>
+    <th:block th:replace="${scripts}" />
+</th:block>
+</body>
+</html>

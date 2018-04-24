@@ -68,7 +68,7 @@ public class SystemController extends BaseController {
         }
         return "redirect:/index.html";
     }
-
+    
     /**
      * 登出
      * @return
