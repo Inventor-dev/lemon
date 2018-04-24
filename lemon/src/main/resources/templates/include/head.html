@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head th:fragment="common_header(title,links)" >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:replace="${title}">Lemon</title>
+    <link rel="icon" th:href="@{/img/favicon.png}">
+    <link th:href="@{/css/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/flat-ui.min.css}" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/vendor/html5shiv.js}"></script>
+    <script th:src="@{/js/vendor/respond.min.js}"></script>
+    <![endif]-->
+</head>
+<body>
+
+</body>
+</html>
