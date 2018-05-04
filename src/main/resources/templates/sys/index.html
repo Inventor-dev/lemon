@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lemon</title>
     <meta charset="UTF-8">
@@ -13,56 +13,77 @@
     <script src="js/vendor/respond.min.js"></script>
     <![endif]-->
     <style type="text/css">
-        .navbar-header .logo{height: 25px;padding-right: 8px;}
-        .navbar-header a.navbar-brand:hover .logo{ color: #1abc9c;}
+        .navbar-header .logo {
+            height: 25px;
+            padding-right: 8px;
+        }
 
+        .navbar-header a.navbar-brand:hover .logo {
+            color: #1abc9c;
+        }
+        .navbar-collapse .navbar-nav.navbar-right:last-child {
+            margin-right: 0px !important;
+        }
+        .navbar-nav > li > a {
+            font-size: 20px;
+        }
+        .navbar-default .navbar-nav>li>a:hover{
+            background-color: #e6e8ea;
+        }
+        .glyphicon-option-vertical:before {
+            content: "\e235";
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/index.html}" ><img class="logo" th:src="@{/img/logo.svg}" />Lemon</a>
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar"> </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-nav" action="#" role="search">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
-                        <span class="input-group-btn">
-                      <button type="submit" class="btn"><span class="fui-search"></span></button>
-                    </span>
-                    </div>
-                </div>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li class=""><a href="#"><span class="fui-bubble"></span><span class="navbar-unread">1</span></a></li>
-                <li class=""><a href="#"><span class="fui-yelp"></span></a></li>
-                <li class=""><a href="#"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fui-gear"></span>設置</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><span class="fui-user"></span>我的信息</a></li>
-                        <li><a href="#">修改密码</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header"><span class="fui-lock"></span>锁屏</li>
-                        <li><a href="#"><span class="fui-resize"></span>全屏</a></li>
-                        <li><a th:href="@{/logout}"><span class="fui-exit"></span>退出</a></li>
-                    </ul>
-                </li>
-                <li class=""><a href="#"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span></a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
+<header class="navbar-default navbar-static-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" th:href="@{/index.html}"><img class="logo" th:src="@{/img/logo.svg}"/>Lemon</a>
     </div>
-</nav>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="#"><span class="glyphicon glyphicon-indent-right"></span></a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="">
+                <form class="navbar-form" action="#" role="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" id="navbarInput-01" type="search" placeholder="搜索">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn"><span class="fui-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class=""><a href="#"><span class="fui-bubble"></span><span class="navbar-unread">1</span></a></li>
+            <li class=""><a href="#"><span class="fui-yelp"></span></a></li>
+            <li class=""><a href="#"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span></a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false">
+                    <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><span class="fui-user"></span>我的信息</a></li>
+                    <li><a href="#">修改密码</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header"><span class="fui-lock"></span>锁屏</li>
+                    <li><a href="#"><span class="fui-resize"></span>全屏</a></li>
+                    <li><a th:href="@{/logout}"><span class="fui-exit"></span>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</header>
+<!--左边导航菜单-->
+<aside id="sideNav">
+
+</aside>
 
 
-
-
-    <script src="js/vendor/jquery.min.js"></script>
-    <script src="js/vendor/video.js"></script>
-    <script src="js/flat-ui.min.js"></script>
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/video.js"></script>
+<script src="js/flat-ui.min.js"></script>
 </body>
 </html>
