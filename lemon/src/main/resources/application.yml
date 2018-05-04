@@ -5,4 +5,4 @@ spring:
     enabled: detect
 # 默认环境
   profiles:
-    active: @profiles.actiive@
+    active: @profiles.active@
