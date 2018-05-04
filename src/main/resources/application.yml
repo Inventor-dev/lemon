@@ -1,0 +1,6 @@
+spring:
+  output:
+    ansi:
+      enabled: detect
+  profiles:
+    active: @profile.active@

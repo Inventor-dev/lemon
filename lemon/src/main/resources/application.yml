@@ -1,8 +1,0 @@
-spring:
-#彩色控制台
-  output:
-    ansi:
-    enabled: detect
-# 默认环境
-  profiles:
-    active: @profiles.active@
