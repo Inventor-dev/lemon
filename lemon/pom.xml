@@ -103,11 +103,7 @@
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatisplus.version}</version>
         </dependency>
-
-
-
         <!-- persistence end -->
-
 
         <!-- shiro begin -->
         <dependency>
@@ -122,7 +118,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
         </dependency>
-
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
@@ -151,92 +146,106 @@
         <!-- util end -->
 
         <!-- J2EE begin -->
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
-
         <!-- J2EE end -->
 
-
         <!-- test begin -->
-
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <!-- test end -->
 
     </dependencies>
 
+
+    <!--环境打包配置-->
+    <profiles>
+        <!--开发环境 默认-->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profiles.actiive>dev</profiles.actiive>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!--生产环境-->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profiles.actiive>prod</profiles.actiive>
+            </properties>
+        </profile>
+        <!-- 测试环境 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <profiles.actiive>test</profiles.actiive>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
+        <!-- 配置文件处理 -->
+        <resources>
+            <!--要排除的文件-->
+            <resource>
+                <directory>${basedir}src/main/resources/</directory>
+                <excludes>
+                    <exclude>application*.yml</exclude>
+                </excludes>
+            </resource>
+            <!--要引入的文件-->
+            <resource>
+                <filtering>true</filtering>
+                <directory>${basedir}src/main/resources/</directory>
+                <includes>
+                    <include>application.yml</include>
+                    <include>application-${profiles.actiive}.yml</include>
+                </includes>
+            </resource>
+        </resources>
         <!-- 插件 -->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>1.2.8.RELEASE</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
 
+    <!--maven 仓库配置-->
     <repositories>
         <repository>
             <id>ali-repos</id>
             <name>ali Repository</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
         </repository>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
     </repositories>
+
+    <!--maven 插件仓库-->
     <pluginRepositories>
         <pluginRepository>
             <id>ali-repos</id>
             <name>ali Repository</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
         </pluginRepository>
-        <pluginRepository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
     </pluginRepositories>
+
+    <!--开发者信息-->
+    <developers>
+        <developer>
+            <id>lemon</id>
+            <name>lemon</name>
+            <url>lime123.xyz</url>
+            <email>lemon_yp@hotmail.com</email>
+        </developer>
+    </developers>
 
 </project>
