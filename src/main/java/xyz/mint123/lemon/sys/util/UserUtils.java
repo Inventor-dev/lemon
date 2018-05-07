@@ -1,6 +1,7 @@
 package xyz.mint123.lemon.sys.util;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import xyz.mint123.lemon.core.util.SpringUtils;
 import xyz.mint123.lemon.sys.entity.User;
 import xyz.mint123.lemon.sys.service.UserService;
 
@@ -10,7 +11,7 @@ import xyz.mint123.lemon.sys.service.UserService;
  */
 public class UserUtils {
 
-    private static UserService userService;
+    private static UserService userService = SpringUtils.getBean(UserService.class);
 
     /**
      * 通过 登录名获取用户
@@ -21,8 +22,4 @@ public class UserUtils {
         return userService.selectOne(new EntityWrapper<User>().eq("login_name",username));
     }
 
-    @Deprecated
-    public static void setUserService(UserService userService) {
-        UserUtils.userService = userService;
-    }
 }

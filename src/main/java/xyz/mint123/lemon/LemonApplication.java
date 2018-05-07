@@ -1,20 +1,17 @@
 package xyz.mint123.lemon;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-
-import javax.servlet.ServletException;
+import org.springframework.context.annotation.Import;
+import xyz.mint123.lemon.core.util.SpringUtils;
 
 /**
  * @author lemon
  * @version 2018-1-22
  */
+@Import(SpringUtils.class)
 @SpringBootApplication
 public class LemonApplication extends SpringBootServletInitializer {
 
