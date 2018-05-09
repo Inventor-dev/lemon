@@ -15,7 +15,7 @@ spring:
 # 数据源 配置
   datasource:
     druid:
-      url: jdbc:mysql://lime123.xyz:3306/lemon?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=PRC&useSSL=false
+      url: jdbc:mysql://server.lime123.xyz:3306/lemon?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=PRC&useSSL=false
       username: lemon
       password: IFWGv0xQSNUHHbgrRe9vhlb5Gb4+ekBkQpairWhDhd8lkbFTwk5/PMMHreBLMMsdHpkl3IZH+CpyMt9RgYXS4w==
       initial-size: 5
@@ -50,7 +50,7 @@ spring:
         max-active: 8
         max-idle: 8
         min-idle: 0
-        max-wait: -1ms
+        max-wait: 3000ms
 #  缓存配置
   cache:
     cache-names: lemon
