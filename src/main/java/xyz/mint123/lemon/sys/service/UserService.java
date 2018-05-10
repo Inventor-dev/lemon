@@ -14,7 +14,7 @@ import java.util.List;
  * @version 2018/2/26
  */
 @Service
-public class UserService extends BaseService<User,UserMapper> {
+public class UserService extends BaseService<UserMapper,User,String> {
 
    public List<User> selectList(User entity){
         return baseMapper.selectList(entity);

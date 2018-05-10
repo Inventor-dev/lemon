@@ -7,11 +7,11 @@ import java.util.Date;
 
 /**
  * 基础 entity
+ * @param <I> 主键类型
  * @author lemon
  * @version 2018/1/23
- *
  */
-public class BaseEntity<T extends Serializable> extends DataEntity {
+public class BaseEntity<I extends Serializable> extends DataEntity<String> {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,21 +19,21 @@ public class BaseEntity<T extends Serializable> extends DataEntity {
      * 主键
      */
     @TableId(value = "id")
-    private T id;
+    private I id;
 
     public BaseEntity() {
     }
 
-    public BaseEntity(T id) {
+    public BaseEntity(I id) {
         super();
         this.id = id;
     }
 
-    public T getId() {
+    public I getId() {
         return id;
     }
 
-    public void setId(T id) {
+    public void setId(I id) {
         this.id = id;
     }
 }

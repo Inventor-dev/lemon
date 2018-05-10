@@ -11,6 +11,7 @@ import xyz.mint123.lemon.core.support.shiro.AuthorizingRealm;
 
 /**
  * shiro 配置
+ *
  * @author lemon
  * @version 2018/3/28
  */
@@ -19,6 +20,7 @@ public class ShiroConfiguration {
 
     /**
      * 自定义授权认证类实现
+     *
      * @return
      */
     @Bean
@@ -44,20 +46,20 @@ public class ShiroConfiguration {
         chainDefinition.addPathDefinition("/**", "authc");
         return chainDefinition;
     }
+
     /**
      * 方法级 AOP 权限检查
+     *
      * @return
      */
     @Bean
     @DependsOn("lifecycleBeanPostProcessor")
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
         //强制使用 CGlib
         proxyCreator.setProxyTargetClass(true);
         return proxyCreator;
     }
-
-
 
 
 }

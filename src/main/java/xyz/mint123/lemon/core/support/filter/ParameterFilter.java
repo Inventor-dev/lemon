@@ -14,8 +14,10 @@ import java.io.IOException;
  * @version 2018/3/23
  */
 public class ParameterFilter extends OncePerRequestFilter {
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         filterChain.doFilter(request,response);
     }
+
 }

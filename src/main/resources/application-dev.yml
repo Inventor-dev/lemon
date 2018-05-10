@@ -53,9 +53,12 @@ spring:
         max-wait: 3000ms
 #  缓存配置
   cache:
-    cache-names: lemon
+    type: redis
     redis:
       time-to-live: 6000ms
+      key-prefix: 'lemon:'
+      use-key-prefix: true
+
  #模板引擎配置
   thymeleaf:
    mode: HTML5
@@ -74,8 +77,6 @@ mybatis-plus:
 #    逻辑删除配置
     logic-delete-value: 1
     logic-not-delete-value: 0
-#    字段填充
-    meta-object-handler: xyz.mint123.lemon.core.support.mybatisplus.MetaObjectHandler
   configuration:
     map-underscore-to-camel-case: true
 #  shiro 配置

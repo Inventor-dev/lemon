@@ -14,8 +14,7 @@ public class ApplicationReady implements ApplicationListener<ApplicationReadyEve
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        System.out.println("");
-        System.out.println("");
+        System.out.println("\r");
         System.out.println("     ╭────╮         ╭───╮   ╭──── ────╮      ╭───╮       ╭──────╮               ");
         System.out.println("     ╰╮  ╭╯        /  ╭─╯   │    │    │     ╱     ╲      │       ╲              ");
         System.out.println("      │  │        /   ╰─╮   │ ─     ─ │    │       │     │   _   │              ");
@@ -23,7 +22,7 @@ public class ApplicationReady implements ApplicationListener<ApplicationReadyEve
         System.out.println("      │  │       │    ╰─╮   │         │    │   │   │     │   │   │              ");
         System.out.println("     ╭╯  ╰────╮  │      │   │    │    │     ╲     ╱      │   │   │              ");
         System.out.println("     ╰────────╯  ╰──────╯   ╰────╯────╯      ╰───╯       ╰───┴───╯      v 1.0   ");
-        System.out.println("");
+        System.out.println("\r");
         System.out.println("Welcome to use Lemon ");
     }
 }

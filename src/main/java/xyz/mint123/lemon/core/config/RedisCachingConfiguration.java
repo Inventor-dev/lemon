@@ -3,6 +3,7 @@ package xyz.mint123.lemon.core.config;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.cache.annotation.*;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -14,6 +15,7 @@ import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import xyz.mint123.lemon.core.util.StringUtils;
 
 import java.lang.reflect.Method;
 
@@ -31,21 +33,22 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
 
     private CacheProperties.Redis redisProperties;
 
+    @Autowired
     RedisCachingConfiguration(CacheProperties cacheProperties, RedisConnectionFactory redisConnectionFactory) {
-        this.redisProperties = cacheProperties.getRedis();
         this.redisConnectionFactory = redisConnectionFactory;
+        this.redisProperties = cacheProperties.getRedis();
     }
 
     /**
      * 重写key 生成规则
+     *
      * @return
      */
     @Bean
     @Override
     public KeyGenerator keyGenerator() {
         return (Object target, Method method, Object... params) -> {
-            final String  prefix = redisProperties.getKeyPrefix() + "M:";
-            StringBuilder sb = new StringBuilder(prefix);
+            StringBuilder sb = new StringBuilder();
             CacheConfig cacheConfig = target.getClass().getAnnotation(CacheConfig.class);
             Cacheable cacheable = method.getAnnotation(Cacheable.class);
             CachePut cachePut = method.getAnnotation(CachePut.class);
@@ -66,19 +69,19 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
                     sb.append(cacheNames[0]);
                 }
             }
-            if (cacheConfig != null && sb.toString().equals(prefix)) {
+            if (cacheConfig != null && StringUtils.isEmpty(sb.toString())) {
                 String[] cacheNames = cacheConfig.cacheNames();
                 if (ArrayUtils.isNotEmpty(cacheNames)) {
                     sb.append(cacheNames[0]);
                 }
             }
-            if (sb.toString().equals(prefix)) {
-                sb.append(target.getClass().getName()).append(".").append(method.getName());
+            if (StringUtils.isEmpty(sb.toString())) {
+                sb.append(target.getClass().getName()).append(":").append(method.getName());
             }
             sb.append(":");
             if (params != null) {
-                for (Object object : params) {
-                    sb.append(JSON.toJSONString(object));
+                for (Object param : params) {
+                    sb.append(String.valueOf(param));
                 }
             }
             return sb.toString();
@@ -87,6 +90,7 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
 
     /**
      * redis 缓存配置
+     *
      * @return
      */
     @Bean

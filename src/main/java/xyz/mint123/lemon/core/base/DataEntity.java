@@ -9,11 +9,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 数据基类
- * @author lemon
- * @version 2018/3/22
+ *   数据基类
+ *  @param <DI> 数据记录ID 类型
+ *  @author lemon
+ *  @version 2018/3/22
+ *
  */
-public class DataEntity implements Serializable {
+public class DataEntity<DI extends Serializable> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +23,7 @@ public class DataEntity implements Serializable {
      * 创建者
      */
     @TableField(fill = FieldFill.INSERT)
-    private String creator;
+    private DI creator;
 
     /**
      * 创建日期
@@ -33,7 +35,7 @@ public class DataEntity implements Serializable {
      * 创建者
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String mender;
+    private DI mender;
 
     /**
      * 修改日期
@@ -48,10 +50,6 @@ public class DataEntity implements Serializable {
     private Long version;
 
     /**
-     * 备注信息
-     */
-    private String remarks;
-    /**
      * 数据状态
      * 启用 @Link Constants.DATA_FLAG_NORMAL
      * 删除 @Link Constants.DATA_FLAG_DELETE
@@ -61,14 +59,19 @@ public class DataEntity implements Serializable {
     @TableField("data_flag")
     private Integer dataFlag;
 
+    /**
+     * 备注信息
+     */
+    private String remarks;
+
     public DataEntity() {
     }
 
-    public String getCreator() {
+    public DI getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(DI creator) {
         this.creator = creator;
     }
 
@@ -80,11 +83,11 @@ public class DataEntity implements Serializable {
         this.dateCreated = dateCreated;
     }
 
-    public String getMender() {
+    public DI getMender() {
         return mender;
     }
 
-    public void setMender(String mender) {
+    public void setMender(DI mender) {
         this.mender = mender;
     }
 

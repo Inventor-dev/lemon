@@ -4,6 +4,7 @@ package xyz.mint123.lemon.core.config;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import xyz.mint123.lemon.core.support.mybatisplus.MetaObjectHandler;
 
 /**
  * mybatisplus 配置
@@ -22,6 +23,14 @@ public class MyBatisPlusConfiguration {
     }
 
 
+    /**
+     * 公共字段填充
+     * <br/> 推荐 spring 注入方式 否则会出现类不能加载问题
+     */
+    @Bean
+    public MetaObjectHandler metaObjectHandler(){
+        return new MetaObjectHandler();
+    }
 
 
 

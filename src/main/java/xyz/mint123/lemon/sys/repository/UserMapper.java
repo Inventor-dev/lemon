@@ -11,7 +11,7 @@ import xyz.mint123.lemon.sys.entity.User;
  * @version 2018/1/24
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<User,String> {
 
     /**
      * 查询 列表集合

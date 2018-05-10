@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author lemon
  * @version 2018/2/28
  */
-public class BaseResult<D> implements Serializable {
+public class JsonResult<D> implements Serializable {
 
     private static final long serialVersionUID = -1L;
 

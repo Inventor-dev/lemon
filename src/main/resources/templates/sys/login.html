@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
-<head th:include="include/head :: common_header(~{::title},~{},~{::meta},~{::style})">
+<head th:include="include/common :: common_header(~{::title},~{},~{::meta},~{::style})">
     <title>Lemon-登录</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style th:inline="css">
@@ -25,6 +25,6 @@
             </div>
         </div>
     </div>
-    <th:block th:include="include/scripts :: common_scripts(~{})" />
+    <th:block th:include="include/common :: common_scripts(~{})" />
 </body>
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
-<head th:include="include/head :: common_header(~{::title},~{},~{::meta},~{::style})">
+<head th:include="include/common :: common_header(~{::title},~{},~{::meta},~{::style})">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Lemon-登录表单</title>
     <style type="text/css">
@@ -21,6 +21,6 @@
     <button type="submit" class="btn btn-primary btn-large btn-block" >登录</button>
     <a class="login-link" href="#">忘记密码</a>
   </form>
-  <th:block th:include="include/scripts :: common_scripts(~{})" />
+  <th:block th:include="include/common :: common_scripts(~{})" />
 </body>
 </html>
