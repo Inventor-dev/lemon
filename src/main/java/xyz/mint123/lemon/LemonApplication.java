@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Import;
 import xyz.mint123.lemon.core.util.SpringUtils;
 
@@ -12,9 +13,10 @@ import xyz.mint123.lemon.core.util.SpringUtils;
  * @author lemon
  * @version 2018-1-22
  */
-@Import(SpringUtils.class)
+@EnableCaching
 @SpringBootApplication
 @EnableAutoConfiguration
+@Import(SpringUtils.class)
 public class LemonApplication extends SpringBootServletInitializer {
 
     @Override

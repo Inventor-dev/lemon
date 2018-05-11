@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import xyz.mint123.lemon.core.base.BaseController;
 import xyz.mint123.lemon.core.support.shiro.UsernamePasswordToken;
+import xyz.mint123.lemon.core.util.RedisUtils;
 
 import javax.servlet.http.HttpServletRequest;
 

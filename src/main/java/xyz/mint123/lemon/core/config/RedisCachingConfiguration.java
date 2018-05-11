@@ -1,17 +1,17 @@
 package xyz.mint123.lemon.core.config;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.cache.annotation.*;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -26,23 +26,24 @@ import java.lang.reflect.Method;
  * @version 2018年1月20日
  */
 @Configuration
+@ConditionalOnBean(RedisCacheConfiguration.class)
 @EnableCaching
 public class RedisCachingConfiguration extends CachingConfigurerSupport {
 
-    private RedisConnectionFactory redisConnectionFactory;
+    /**
+     * redisTemplate bean ID
+     */
+    public static final String REDIS_TEMPLATE_BEAN_ID = "redisTemplate";
 
     private CacheProperties.Redis redisProperties;
 
     @Autowired
-    RedisCachingConfiguration(CacheProperties cacheProperties, RedisConnectionFactory redisConnectionFactory) {
-        this.redisConnectionFactory = redisConnectionFactory;
+    RedisCachingConfiguration(CacheProperties cacheProperties) {
         this.redisProperties = cacheProperties.getRedis();
     }
 
     /**
      * 重写key 生成规则
-     *
-     * @return
      */
     @Bean
     @Override
@@ -79,10 +80,8 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
                 sb.append(target.getClass().getName()).append(":").append(method.getName());
             }
             sb.append(":");
-            if (params != null) {
-                for (Object param : params) {
-                    sb.append(String.valueOf(param));
-                }
+            for (Object param : params) {
+                sb.append(String.valueOf(param));
             }
             return sb.toString();
         };
@@ -90,8 +89,6 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
 
     /**
      * redis 缓存配置
-     *
-     * @return
      */
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration() {
@@ -115,11 +112,9 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
 
     /**
      * 实例化 RedisTemplate 对象
-     *
-     * @return
      */
-    @Bean(name = "redisTemplate")
-    public RedisTemplate<String, Object> redisTemplate() {
+    @Bean(name = RedisCachingConfiguration.REDIS_TEMPLATE_BEAN_ID)
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
         initRedisTemplate(redisTemplate, redisConnectionFactory);
         return redisTemplate;
@@ -136,48 +131,5 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
         redisTemplate.setHashValueSerializer(valueSerializer);
         redisTemplate.setValueSerializer(valueSerializer);
         redisTemplate.setConnectionFactory(factory);
-    }
-
-
-    /**
-     * 实例化 HashOperations 对象,可以使用 Hash 类型操作
-     */
-    @Bean
-    public HashOperations<String, String, Object> hashOperations(RedisTemplate<String, Object> redisTemplate) {
-        return redisTemplate.opsForHash();
-    }
-
-    /**
-     * 实例化 ValueOperations 对象,可以使用 String 操作
-     */
-    @Bean
-    public ValueOperations<String, Object> valueOperations(RedisTemplate<String, Object> redisTemplate) {
-        return redisTemplate.opsForValue();
-    }
-
-    /**
-     * 实例化 ListOperations 对象,可以使用 List 操作
-     *
-     * @return
-     */
-    @Bean
-    public ListOperations<String, Object> listOperations(RedisTemplate<String, Object> redisTemplate) {
-        return redisTemplate.opsForList();
-    }
-
-    /**
-     * 实例化 SetOperations 对象,可以使用 Set 操作
-     */
-    @Bean
-    public SetOperations<String, Object> setOperations(RedisTemplate<String, Object> redisTemplate) {
-        return redisTemplate.opsForSet();
-    }
-
-    /**
-     * 实例化 ZSetOperations 对象,可以使用 ZSet 操作
-     */
-    @Bean
-    public ZSetOperations<String, Object> zSetOperations(RedisTemplate<String, Object> redisTemplate) {
-        return redisTemplate.opsForZSet();
     }
 }

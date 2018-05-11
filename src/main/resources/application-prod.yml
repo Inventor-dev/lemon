@@ -2,7 +2,7 @@
 server:
   port: 80
   servlet:
-    context-path: /
+    context-path: /lemon
 # ------  spring 配置 -----
 spring:
   aop:
@@ -50,12 +50,15 @@ spring:
         max-active: 8
         max-idle: 8
         min-idle: 0
-        max-wait: -1ms
+        max-wait: 3000ms
 #  缓存配置
   cache:
-    cache-names: lemon
+    type: redis
     redis:
       time-to-live: 6000ms
+      key-prefix: 'lemon:'
+      use-key-prefix: true
+
  #模板引擎配置
   thymeleaf:
    mode: HTML5
@@ -74,8 +77,6 @@ mybatis-plus:
 #    逻辑删除配置
     logic-delete-value: 1
     logic-not-delete-value: 0
-#    字段填充
-    meta-object-handler: xyz.mint123.lemon.core.support.mybatisplus.MetaObjectHandler
   configuration:
     map-underscore-to-camel-case: true
 #  shiro 配置
