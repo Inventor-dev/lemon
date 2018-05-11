@@ -4,6 +4,7 @@ import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -16,6 +17,7 @@ import xyz.mint123.lemon.core.support.shiro.AuthorizingRealm;
  * @version 2018/3/28
  */
 @Configuration
+@ConditionalOnProperty(name = "shiro.enabled", matchIfMissing = true)
 public class ShiroConfiguration {
 
     /**

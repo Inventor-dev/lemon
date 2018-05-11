@@ -1,7 +1,10 @@
 package xyz.mint123.lemon.core.config;
 
 
+import com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.spring.boot.starter.MybatisPlusAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import xyz.mint123.lemon.core.support.mybatisplus.MetaObjectHandler;
@@ -11,17 +14,8 @@ import xyz.mint123.lemon.core.support.mybatisplus.MetaObjectHandler;
  * @author Mint
  */
 @Configuration
+@ConditionalOnBean(MybatisPlusAutoConfiguration.class)
 public class MyBatisPlusConfiguration {
-
-    /**
-     * 分页插件
-     * @return
-     */
-    @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        return new PaginationInterceptor();
-    }
-
 
     /**
      * 公共字段填充
@@ -32,7 +26,21 @@ public class MyBatisPlusConfiguration {
         return new MetaObjectHandler();
     }
 
+    /**
+     * 分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
+    }
 
+    /**
+     * 乐观锁插件
+     */
+    @Bean
+    public OptimisticLockerInterceptor optimisticLockerInterceptor(){
+        return new OptimisticLockerInterceptor();
+    }
 
 
 
