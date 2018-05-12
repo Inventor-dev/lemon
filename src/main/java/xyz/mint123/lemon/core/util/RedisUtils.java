@@ -59,7 +59,7 @@ public class RedisUtils {
      * @param <T>
      * @return
      */
-    public <T> T get(String key) {
+    public static <T> T get(String key) {
         ValueOperations<String, T> thatValueOperations = (ValueOperations<String, T>) valueOperations;
         return thatValueOperations.get(key);
     }
@@ -70,7 +70,7 @@ public class RedisUtils {
      * @param key   key
      * @param value 值
      */
-    public <T> void set(String key, T value) {
+    public static <T> void set(String key, T value) {
         valueOperations.set(key, value);
     }
 
@@ -81,7 +81,7 @@ public class RedisUtils {
      * @param value  值
      * @param expire 过期时间(单位:秒)
      */
-    public <T> void set(String key, T value, long expire) {
+    public static <T> void set(String key, T value, long expire) {
         valueOperations.set(key, value, expire, TimeUnit.SECONDS);
     }
 

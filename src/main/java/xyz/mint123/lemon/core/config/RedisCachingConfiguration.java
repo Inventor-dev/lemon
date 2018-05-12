@@ -1,20 +1,17 @@
 package xyz.mint123.lemon.core.config;
 
-import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import org.apache.commons.lang3.ArrayUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.cache.annotation.*;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import xyz.mint123.lemon.core.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -26,7 +23,6 @@ import java.lang.reflect.Method;
  * @version 2018年1月20日
  */
 @Configuration
-@ConditionalOnBean(RedisCacheConfiguration.class)
 @EnableCaching
 public class RedisCachingConfiguration extends CachingConfigurerSupport {
 
@@ -35,12 +31,7 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
      */
     public static final String REDIS_TEMPLATE_BEAN_ID = "redisTemplate";
 
-    private CacheProperties.Redis redisProperties;
-
-    @Autowired
-    RedisCachingConfiguration(CacheProperties cacheProperties) {
-        this.redisProperties = cacheProperties.getRedis();
-    }
+    public static final String REACTIVE_REDIS_TEMPLATE_BEAN_ID = "reactiveRedisTemplate";
 
     /**
      * 重写key 生成规则
@@ -87,49 +78,24 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
         };
     }
 
-    /**
-     * redis 缓存配置
-     */
-    @Bean
-    public RedisCacheConfiguration redisCacheConfiguration() {
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-        config = config.serializeValuesWith(RedisSerializationContext.SerializationPair
-                .fromSerializer(new GenericFastJsonRedisSerializer()));
-        if (redisProperties.getTimeToLive() != null) {
-            config = config.entryTtl(redisProperties.getTimeToLive());
-        }
-        if (redisProperties.getKeyPrefix() != null) {
-            config = config.prefixKeysWith(redisProperties.getKeyPrefix());
-        }
-        if (!redisProperties.isCacheNullValues()) {
-            config = config.disableCachingNullValues();
-        }
-        if (!redisProperties.isUseKeyPrefix()) {
-            config = config.disableKeyPrefix();
-        }
-        return config;
+
+    @Bean(REDIS_TEMPLATE_BEAN_ID)
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        GenericJackson2JsonRedisSerializer valueSerializer = new GenericJackson2JsonRedisSerializer();
+        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
+        template.setDefaultSerializer(valueSerializer);
+        return template;
     }
 
-    /**
-     * 实例化 RedisTemplate 对象
-     */
-    @Bean(name = RedisCachingConfiguration.REDIS_TEMPLATE_BEAN_ID)
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
-        initRedisTemplate(redisTemplate, redisConnectionFactory);
-        return redisTemplate;
+
+    @Bean(REACTIVE_REDIS_TEMPLATE_BEAN_ID)
+    public ReactiveRedisTemplate<Object, Object> reactiveRedisTemplate(ResourceLoader resourceLoader,
+                                                                       ReactiveRedisConnectionFactory reactiveRedisConnectionFactory) {
+        ReactiveRedisTemplate<Object, Object> reactiveRedisTemplate = new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory,
+                RedisSerializationContext.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+        return reactiveRedisTemplate;
     }
 
-    /**
-     * 设置数据存入 redis 的序列化方式
-     */
-    private void initRedisTemplate(RedisTemplate<String, Object> redisTemplate, RedisConnectionFactory factory) {
-        final RedisSerializer keySerializer = new StringRedisSerializer();
-        final RedisSerializer valueSerializer = new GenericFastJsonRedisSerializer();
-        redisTemplate.setKeySerializer(keySerializer);
-        redisTemplate.setHashKeySerializer(keySerializer);
-        redisTemplate.setHashValueSerializer(valueSerializer);
-        redisTemplate.setValueSerializer(valueSerializer);
-        redisTemplate.setConnectionFactory(factory);
-    }
+
 }
