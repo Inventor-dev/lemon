@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import xyz.mint123.lemon.core.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -79,14 +80,19 @@ public class RedisCachingConfiguration extends CachingConfigurerSupport {
     }
 
 
-    @Bean(REDIS_TEMPLATE_BEAN_ID)
-    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        GenericJackson2JsonRedisSerializer valueSerializer = new GenericJackson2JsonRedisSerializer();
-        RedisTemplate<Object, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory);
-        template.setDefaultSerializer(valueSerializer);
-        return template;
-    }
+//    @Bean(REDIS_TEMPLATE_BEAN_ID)
+//    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+//        GenericJackson2JsonRedisSerializer valueSerializer = new GenericJackson2JsonRedisSerializer();
+//        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+//        RedisSerializer<String> keySerializer = template.getStringSerializer();
+//        template.setConnectionFactory(redisConnectionFactory);
+//        template.setDefaultSerializer(valueSerializer);
+//        template.setKeySerializer(keySerializer);
+//        template.setHashValueSerializer(keySerializer);
+//        template.setValueSerializer(valueSerializer);
+//        template.setHashValueSerializer(valueSerializer);
+//        return template;
+//    }
 
 
     @Bean(REACTIVE_REDIS_TEMPLATE_BEAN_ID)

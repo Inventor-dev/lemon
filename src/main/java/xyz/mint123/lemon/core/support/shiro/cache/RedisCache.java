@@ -4,6 +4,7 @@ import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+
 import java.util.Collection;
 import java.util.Set;
 
@@ -16,50 +17,53 @@ import java.util.Set;
  */
 public class RedisCache<K, V> implements Cache<K, V> {
 
-    private static final String CACHE_KEY = "shiro:session";
+    private final String cacheKey;
 
     private HashOperations<String, K, V> hashOperations;
 
-    public RedisCache(RedisTemplate<String, Object> redisTemplate) {
+    public RedisCache(String cacheKey,RedisTemplate<String, Object> redisTemplate) {
+        this.cacheKey = cacheKey;
         this.hashOperations = redisTemplate.opsForHash();
     }
 
     @Override
     public V get(K k) throws CacheException {
-        return hashOperations.get(CACHE_KEY, k);
+        return hashOperations.get(cacheKey, k);
     }
 
     @Override
     public V put(K k, V v) throws CacheException {
-        hashOperations.put(CACHE_KEY, k, v);
+        hashOperations.put(cacheKey, k, v);
         return v;
     }
 
     @Override
     public V remove(K k) throws CacheException {
-        hashOperations.delete(CACHE_KEY, k);
+        hashOperations.delete(cacheKey, k);
         return null;
     }
 
     @Override
     public void clear() throws CacheException {
-        Set<K> keys = hashOperations.keys(CACHE_KEY);
-        keys.stream().forEach(k -> hashOperations.delete(CACHE_KEY, k));
+        Set<K> keys = hashOperations.keys(cacheKey);
+        keys.forEach(k -> hashOperations.delete(cacheKey, k));
     }
 
     @Override
     public int size() {
-        return Math.toIntExact(hashOperations.size(CACHE_KEY));
+        return Integer.valueOf(String.valueOf(hashOperations.size(cacheKey)));
     }
 
     @Override
     public Set<K> keys() {
-        return hashOperations.keys(CACHE_KEY);
+        return hashOperations.keys(cacheKey);
     }
 
     @Override
     public Collection<V> values() {
-        return hashOperations.values(CACHE_KEY);
+        return hashOperations.values(cacheKey);
     }
+
+
 }
 

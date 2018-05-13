@@ -1,23 +1,20 @@
 package xyz.mint123.lemon.core.config;
 
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.mgt.SessionManager;
-import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.redis.core.RedisTemplate;
 import xyz.mint123.lemon.core.support.shiro.AuthorizingRealm;
-import xyz.mint123.lemon.core.support.shiro.cache.RedisCache;
 import xyz.mint123.lemon.core.support.shiro.cache.RedisCacheManager;
 import xyz.mint123.lemon.core.support.shiro.cache.RedisSessionDAO;
-import xyz.mint123.lemon.core.support.shiro.cache.ShiroWebSessionManager;
 
 /**
  * shiro 配置
@@ -28,6 +25,12 @@ import xyz.mint123.lemon.core.support.shiro.cache.ShiroWebSessionManager;
 @Configuration
 @ConditionalOnProperty(name = "shiro.enabled", matchIfMissing = true)
 public class ShiroConfiguration {
+
+
+    @Autowired
+    @Qualifier(RedisCachingConfiguration.REDIS_TEMPLATE_BEAN_ID)
+    private RedisTemplate redisTemplate;
+
 
     /**
      * 自定义授权认证类实现
@@ -73,33 +76,23 @@ public class ShiroConfiguration {
     }
 
     /**
-     * session cache
+     * RedisSessionDAO shiro sessionDao层的实现 通过redis
      */
     @Bean
-    public Cache cache(RedisTemplate redisTemplate) {
-        return new RedisCache(redisTemplate);
+    public RedisSessionDAO redisSessionDAO() {
+        RedisSessionDAO redisSessionDAO = new RedisSessionDAO(new RedisCacheManager(redisTemplate), redisTemplate);
+        return redisSessionDAO;
     }
 
-    @Bean
-    public CacheManager cacheManager(Cache cache) {
-        return new RedisCacheManager(cache);
-    }
     /**
-     * session dao
-     *
-     * @return
+     * Session Manager
      */
     @Bean
-    public SessionDAO sessionDAO(CacheManager cacheManager, RedisTemplate redisTemplate) {
-        return new RedisSessionDAO( cacheManager,redisTemplate);
+    public DefaultWebSessionManager sessionManager(RedisSessionDAO redisSessionDAO) {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setSessionDAO(redisSessionDAO);
+        return sessionManager;
     }
 
-    @Bean
-    public SessionManager sessionManager(SessionDAO sessionDAO,CacheManager cacheManager) {
-        ShiroWebSessionManager shiroWebSessionManager = new ShiroWebSessionManager();
-        shiroWebSessionManager.setSessionDAO(sessionDAO);
-        shiroWebSessionManager.setCacheManager(cacheManager);
-        return shiroWebSessionManager;
-    }
 
 }

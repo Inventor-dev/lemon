@@ -1,7 +1,5 @@
 package xyz.mint123.lemon.core.support.shiro.cache;
 
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
@@ -32,9 +30,10 @@ public class RedisSessionDAO extends EnterpriseCacheSessionDAO {
     }
 
 
-    public RedisSessionDAO(CacheManager cacheManager, RedisTemplate<String, Session> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-        this.valueOperations = redisTemplate.opsForValue();
+    public RedisSessionDAO(CacheManager cacheManager, RedisTemplate redisTemplate) {
+        RedisTemplate<String, Session> thatRedisTemplate = (RedisTemplate<String, Session>) redisTemplate;
+        this.redisTemplate = thatRedisTemplate;
+        this.valueOperations = thatRedisTemplate.opsForValue();
         setCacheManager(cacheManager);
     }
 
@@ -42,7 +41,7 @@ public class RedisSessionDAO extends EnterpriseCacheSessionDAO {
     @Override
     protected Serializable doCreate(Session session) {
         Serializable sessionId = super.doCreate(session);
-        valueOperations.set(getSessionKey(sessionId), session);
+        valueOperations.set(getSessionKey(sessionId),  session);
         return sessionId;
     }
 
