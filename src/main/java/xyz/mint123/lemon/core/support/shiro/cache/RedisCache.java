@@ -2,11 +2,14 @@ package xyz.mint123.lemon.core.support.shiro.cache;
 
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
-import org.springframework.data.redis.core.HashOperations;
+import org.apache.shiro.session.mgt.SimpleSession;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import xyz.mint123.lemon.core.util.StringUtils;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Shiro redis 操作
@@ -17,51 +20,77 @@ import java.util.Set;
  */
 public class RedisCache<K, V> implements Cache<K, V> {
 
-    private final String cacheKey;
+    /**
+     * 缓存 前缀
+     */
+    private final String KeyPrefix;
 
-    private HashOperations<String, K, V> hashOperations;
+    private final K pattern;
 
-    public RedisCache(String cacheKey,RedisTemplate<String, Object> redisTemplate) {
-        this.cacheKey = cacheKey;
-        this.hashOperations = redisTemplate.opsForHash();
+    /**
+     * 获取 session 缓存key
+     */
+    private K getSessionKey(K key) {
+        return (K) (KeyPrefix + key);
+    }
+
+    private ValueOperations<K, V> valueOperations;
+
+    private RedisTemplate<K, V> redisTemplate;
+
+    public RedisCache(String KeyPrefix, RedisTemplate redisTemplate) {
+        this.KeyPrefix = KeyPrefix;
+        this.pattern = (K) (KeyPrefix + "*");
+        this.redisTemplate = redisTemplate;
+        this.valueOperations = redisTemplate.opsForValue();
     }
 
     @Override
     public V get(K k) throws CacheException {
-        return hashOperations.get(cacheKey, k);
+        if (StringUtils.isEmpty(String.valueOf(k))) {
+            return null;
+        }
+        return valueOperations.get(getSessionKey(k));
     }
 
     @Override
     public V put(K k, V v) throws CacheException {
-        hashOperations.put(cacheKey, k, v);
+        if (StringUtils.isEmpty(String.valueOf(k))) {
+            return null;
+        }
+        valueOperations.set(getSessionKey(k), v);
+        redisTemplate.expire(getSessionKey(k), 5000, TimeUnit.SECONDS);
         return v;
     }
 
     @Override
     public V remove(K k) throws CacheException {
-        hashOperations.delete(cacheKey, k);
-        return null;
+        if (StringUtils.isEmpty(String.valueOf(k))) {
+            return null;
+        }
+        V v = valueOperations.get(getSessionKey(k));
+        redisTemplate.delete(k);
+        return v;
     }
 
     @Override
     public void clear() throws CacheException {
-        Set<K> keys = hashOperations.keys(cacheKey);
-        keys.forEach(k -> hashOperations.delete(cacheKey, k));
+        redisTemplate.delete(redisTemplate.keys(pattern));
     }
 
     @Override
     public int size() {
-        return Integer.valueOf(String.valueOf(hashOperations.size(cacheKey)));
+        return redisTemplate.keys(pattern).size();
     }
 
     @Override
     public Set<K> keys() {
-        return hashOperations.keys(cacheKey);
+        return redisTemplate.keys(pattern);
     }
 
     @Override
     public Collection<V> values() {
-        return hashOperations.values(cacheKey);
+        return valueOperations.multiGet((Set<K>) redisTemplate.keys(pattern));
     }
 
 

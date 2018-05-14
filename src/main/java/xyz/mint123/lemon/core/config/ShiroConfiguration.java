@@ -11,7 +11,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import xyz.mint123.lemon.core.support.shiro.AuthorizingRealm;
 import xyz.mint123.lemon.core.support.shiro.cache.RedisCacheManager;
 import xyz.mint123.lemon.core.support.shiro.cache.RedisSessionDAO;
@@ -27,10 +29,15 @@ import xyz.mint123.lemon.core.support.shiro.cache.RedisSessionDAO;
 public class ShiroConfiguration {
 
 
-    @Autowired
-    @Qualifier(RedisCachingConfiguration.REDIS_TEMPLATE_BEAN_ID)
-    private RedisTemplate redisTemplate;
-
+    @Bean("shiroRedisTemplate")
+    public RedisTemplate redisTemplate (RedisConnectionFactory redisConnectionFactory  ){
+        RedisTemplate redisTemplate = new RedisTemplate();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        RedisSerializer keySerializer = redisTemplate.getStringSerializer();
+        redisTemplate.setKeySerializer(keySerializer);
+        redisTemplate.setHashKeySerializer(keySerializer);
+        return redisTemplate;
+    }
 
     /**
      * 自定义授权认证类实现
@@ -79,8 +86,8 @@ public class ShiroConfiguration {
      * RedisSessionDAO shiro sessionDao层的实现 通过redis
      */
     @Bean
-    public RedisSessionDAO redisSessionDAO() {
-        RedisSessionDAO redisSessionDAO = new RedisSessionDAO(new RedisCacheManager(redisTemplate), redisTemplate);
+    public RedisSessionDAO redisSessionDAO(@Qualifier("shiroRedisTemplate") RedisTemplate redisTemplate) {
+        RedisSessionDAO redisSessionDAO = new RedisSessionDAO(new RedisCacheManager(redisTemplate));
         return redisSessionDAO;
     }
 
