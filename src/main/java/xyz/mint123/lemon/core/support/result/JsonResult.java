@@ -4,45 +4,46 @@ import java.io.Serializable;
 
 /**
  * 返回数据 基类
+ *
  * @author lemon
  * @version 2018/2/28
  */
-public class JsonResult<D> implements Serializable {
+public class JsonResult<E> implements Serializable {
 
-    private static final long serialVersionUID = -1L;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * 返回状态码
+     * 是否执行成功
      */
-    protected String code;
+    protected boolean success;
+
     /**
-     * 返回消息内容
+     * 返回 消息
      */
-    protected String msg;
+    protected String message;
     /**
-     *  请求uri
+     * 返回数据内容
      */
-    protected String uri;
-    /**
-     * 返回数据
-     */
-    protected D data;
+    protected E data;
 
-    public String getCode() {
-        return code;
+    public JsonResult() {
+        super();
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public String getMsg() {
-        return msg;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public String getMessage() {
+        return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
 }
