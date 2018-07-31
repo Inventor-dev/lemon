@@ -1,5 +1,7 @@
 package xyz.mint123.lemon.core.base;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * 控制器基类
  *
@@ -15,6 +17,8 @@ package xyz.mint123.lemon.core.base;
  */
 public class BaseController {
 
+    @Value("${project.apiPath}")
+    protected String apiPath;
 	
 
 

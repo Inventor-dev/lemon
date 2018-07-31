@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.sys.web;
+package xyz.mint123.lemon.sys.web.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;

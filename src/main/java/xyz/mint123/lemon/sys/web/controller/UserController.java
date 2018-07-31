@@ -1,4 +1,4 @@
-package xyz.mint123.lemon.sys.web;
+package xyz.mint123.lemon.sys.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
