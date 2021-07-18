@@ -6,7 +6,11 @@
     <groupId>xyz.mint123</groupId>
     <artifactId>lemon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>lemon-server</module>
+        <module>lemon-ui</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>lemon</name>
     <description>A backstage base framework called lemon</description>
@@ -229,8 +233,8 @@
     <!--maven 仓库配置-->
     <repositories>
         <repository>
-            <id>ali-repos</id>
-            <name>ali Repository</name>
+            <id>aliyun-repos</id>
+            <name>aliyun Repository</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
         </repository>
     </repositories>
@@ -238,8 +242,8 @@
     <!--maven 插件仓库-->
     <pluginRepositories>
         <pluginRepository>
-            <id>ali-repos</id>
-            <name>ali Repository</name>
+            <id>aliyun-repos</id>
+            <name>aliyun Repository</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
         </pluginRepository>
     </pluginRepositories>
@@ -247,9 +251,9 @@
     <!--开发者信息-->
     <developers>
         <developer>
-            <id>lemon</id>
-            <name>lemon</name>
-            <url>lime123.xyz</url>
+            <id>Inventor-dev</id>
+            <name>Inventor-dev</name>
+            <url>https://github.com/orgs/Inventor-dev</url>
             <email>lemon_yp@hotmail.com</email>
         </developer>
     </developers>
