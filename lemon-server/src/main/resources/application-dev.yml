@@ -1,0 +1,91 @@
+# -------- 服务配置 -------
+server:
+  port: 8080
+  servlet:
+    context-path: /
+# ------  spring 配置 -----
+spring:
+  aop:
+    proxy-target-class: true
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+# 数据源 配置
+  datasource:
+    druid:
+      url: jdbc:mysql://server.lime123.xyz:3306/lemon?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=PRC&useSSL=false
+      username: lemon
+      password: IFWGv0xQSNUHHbgrRe9vhlb5Gb4+ekBkQpairWhDhd8lkbFTwk5/PMMHreBLMMsdHpkl3IZH+CpyMt9RgYXS4w==
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        allow: 127.0.0.1
+        login-username: druid
+        login-password: druid
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions:
+        profile-enable: true
+      filter:
+        config:
+          enabled: true
+      filters: config
+      connection-properties: config.decrypt=true
+
+  # redis 配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 3000ms
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 3000ms
+#  缓存配置
+  cache:
+    type: redis
+    redis:
+      time-to-live: 6000ms
+      key-prefix: 'lemon:'
+      use-key-prefix: true
+
+ #模板引擎配置
+  thymeleaf:
+   mode: HTML5
+   encoding: UTF-8
+   cache: false
+   servlet:
+     content-type: text/html
+#------ mybatis plus 配置 ----------
+mybatis-plus:
+  type-aliases-package: xyz.mint123.lemon
+  global-config:
+#  主键类型 uuid
+    id-type: 3
+#    驼峰下划线转换
+    db-column-underline: true
+#    逻辑删除配置
+    logic-delete-value: 1
+    logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+#  shiro 配置
+shiro:
+  loginUrl: ${project.apiPath}/login/*
+  successUrl: /
+  unauthorizedUrl: /login.html
+
+project:
+  apiPath: /api
+
+
