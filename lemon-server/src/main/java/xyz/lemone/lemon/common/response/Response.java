@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * 统一前端返回数据结构
+ * @author lemon
  */
 public class Response<D> implements Serializable {
 

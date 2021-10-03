@@ -7,6 +7,7 @@ import java.util.Collection;
 
 /**
  * 分页数据
+ * @author lemon
  */
 public class Page<E> implements Serializable {
 
