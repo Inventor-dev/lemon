@@ -1,18 +1,20 @@
-package xyz.lemone.lemon.system.user.enums;
+package xyz.lemone.lemon.system.organization.enums;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 组织机构类型
+ * 组织机构类型.
+ *
  * @author lemon
  * @version 2018/1/23
  */
 public enum OrganizationTypeEnum {
+
     /**
-     * 根节点
+     * 根节点.
      */
-    ROOT("root","组织机构",false){
+    ROOT("root", "组织机构", false) {
         @Override
         public List<OrganizationTypeEnum> getChildTypes() {
             ArrayList<OrganizationTypeEnum> childTypes = new ArrayList<>(2);
@@ -22,9 +24,9 @@ public enum OrganizationTypeEnum {
         }
     },
     /**
-     * 公司
+     * 公司.
      */
-    COMPANY("com","公司",true) {
+    COMPANY("com", "公司", true) {
         @Override
         public List<OrganizationTypeEnum> getChildTypes() {
             ArrayList<OrganizationTypeEnum> childTypes = new ArrayList<>(3);
@@ -34,10 +36,11 @@ public enum OrganizationTypeEnum {
             return childTypes;
         }
     },
+
     /**
-     * 部门
+     * 部门.
      */
-    DEPARTMENT("dept","部门",true) {
+    DEPARTMENT("dept", "部门", true) {
         @Override
         public List<OrganizationTypeEnum> getChildTypes() {
             ArrayList<OrganizationTypeEnum> childTypes = new ArrayList<>(1);
@@ -46,20 +49,20 @@ public enum OrganizationTypeEnum {
         }
     },
     /**
-     * 组织机构类型 岗位
+     * 组织机构类型 岗位.
      */
-    POST("post","岗位",true) {
+    POST("post", "岗位", true) {
         @Override
-        public  List<OrganizationTypeEnum> getChildTypes() {
+        public List<OrganizationTypeEnum> getChildTypes() {
             ArrayList<OrganizationTypeEnum> childTypes = new ArrayList<>(1);
             childTypes.add(PERSONNEL);
             return childTypes;
         }
     },
     /**
-     * 人员
+     * 人员.
      */
-    PERSONNEL("user","人员",true) {
+    PERSONNEL("user", "人员", true) {
         @Override
         public List<OrganizationTypeEnum> getChildTypes() {
             return null;
@@ -67,15 +70,17 @@ public enum OrganizationTypeEnum {
     };
 
     /**
-     * 类型值
+     * 类型值.
      */
     final String value;
+
     /**
-     * 类型名称
+     * 类型名称.
      */
     final String name;
+
     /**
-     * 允许添加 当前类型
+     * 允许添加 当前类型.
      */
     final Boolean allowAdd;
 
@@ -86,26 +91,26 @@ public enum OrganizationTypeEnum {
     }
 
     /**
-     * 获取 子节点 类型
+     * 获取 子节点 类型.
+     *
      * @return 子节点类型 集合
      */
-    public abstract List<OrganizationTypeEnum>  getChildTypes();
+    public abstract List<OrganizationTypeEnum> getChildTypes();
 
     /**
-     * 通过 类型值 获取 类型枚举
+     * 通过 类型值 获取 类型枚举.
+     *
      * @param value 类型值
      * @return 类型枚举
      */
-    public static OrganizationTypeEnum getTypeEnum(String value){
-
-        for ( OrganizationTypeEnum type : OrganizationTypeEnum.values()) {
-            if(type.value.equals(value)){
+    public static OrganizationTypeEnum getTypeEnum(String value) {
+        for (OrganizationTypeEnum type : OrganizationTypeEnum.values()) {
+            if (type.value.equals(value)) {
                 return type;
             }
         }
         return null;
     }
-
 
     @Override
     public String toString() {

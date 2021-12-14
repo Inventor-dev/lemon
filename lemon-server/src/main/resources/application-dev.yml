@@ -31,11 +31,19 @@ spring:
           enabled: true
       filters: config
       connection-properties: config.decrypt=true
+    initialization-mode: always
+    sql-script-encoding: UTF-8
+    schema: 'classpath*:init/schema.sql'
+    data : 'classpath*:init/data.sql'
+
+
+
 
   # 模板引擎配置
   thymeleaf:
    cache: false
-
+schema=classpath:schema:
+  sql:
 #  shiro 配置
 shiro:
   loginUrl: /login/*

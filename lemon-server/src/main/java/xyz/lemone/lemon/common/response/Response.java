@@ -5,33 +5,36 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.io.Serializable;
 
 /**
- * 统一前端返回数据结构
+ * 统一前端返回数据结构.
+ *
  * @author lemon
  */
 public class Response<D> implements Serializable {
 
+    private static final long serialVersionUID = 1;
+
     /**
-     * 成功
+     * 成功.
      */
     public static final Response SUCCESS = new Response(null);
 
     /**
-     * 执行成功与否
+     * 执行成功与否.
      */
     private Boolean success;
 
     /**
-     * 错误码/错误消息KEY
+     * 错误码/错误消息KEY.
      */
     private String errorCode;
 
     /**
-     * 默认错误描述
+     * 默认错误描述.
      */
     private String errorMessage;
 
     /**
-     * 返回数据
+     * 返回数据.
      */
     private D data;
 
@@ -40,29 +43,31 @@ public class Response<D> implements Serializable {
         this.data = data;
     }
 
-    public Response(Boolean success, String errorCode,String errorMessage ) {
+    public Response(Boolean success, String errorCode, String errorMessage) {
         this.success = success;
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }
 
     /**
-     * 成功数据返回
-     * @param data
-     * @param <D>
+     * 成功数据返回.
+     *
+     * @param data 响应数据
+     * @param <D> 响应数据类型
      * @return
      */
-    public static <D> Response<D>  success(D data){
+    public static <D> Response<D> success(D data) {
         return new Response<>(data);
     }
 
     /**
-     * 成功数据返回
-     * @param <D>
+     * 成功数据返回.
+     *
+     * @param <D> 响应数据类型
      * @return
      */
-    public static <D> Response<D>  error(String errorCode,String errorMessage){
-        return new Response<>(Boolean.FALSE,errorCode,errorMessage);
+    public static <D> Response<D> error(String errorCode, String errorMessage) {
+        return new Response<>(Boolean.FALSE, errorCode, errorMessage);
     }
 
     public Boolean getSuccess() {

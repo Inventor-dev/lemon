@@ -5,7 +5,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 /**
- * 系统 启动监听
+ * 系统 启动监听.
+ *
  * @author lemon
  * @version 2018/2/9
  */

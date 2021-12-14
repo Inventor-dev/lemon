@@ -6,28 +6,31 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * 分页数据
+ * 分页数据.
+ *
  * @author lemon
  */
 public class Page<E> implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
-     * 当前页
+     * 当前页.
      */
     private Integer current;
 
     /**
-     * 每页数据条数
+     * 每页数据条数.
      */
     private Integer pageSize;
 
     /**
-     * 数据
+     * 数据.
      */
     private Collection<E> list;
 
     /**
-     * 数据总条数
+     * 数据总条数.
      */
     private Long total;
 

@@ -1,7 +1,8 @@
-package xyz.lemone.lemon.system.user.entity;
+package xyz.lemone.lemon.system.organization.entity;
 
 /**
- * SYS 人员组织机构记录
+ * SYS 人员组织机构记录.
+ *
  * @author lemon
  * @version 2018/1/23
  */
@@ -10,47 +11,57 @@ public class OrganizationRecord {
     private static final long serialVersionUID = -6217085555697682213L;
 
     /**
-     * 人员 ID
+     * 人员 ID.
      */
     private String userId;
+
     /**
-     * 人员名称
+     * 人员名称.
      */
     private String name;
+
     /**
-     * 人员 编码
+     * 人员 编码.
      */
     private String code;
+
     /**
-     * 人员 所属公司ID
+     * 人员 所属公司ID.
      */
     private String companyId;
+
     /**
-     * 人员 所属公司名称
+     * 人员 所属公司名称.
      */
     private String companyName;
+
     /**
-     * 人员 所属部门ID
+     * 人员 所属部门ID.
      */
     private String departmentId;
+
     /**
-     * 人员 所属部门名称
+     * 人员 所属部门名称.
      */
     private String departmentName;
+
     /**
-     * 人员 所属岗位ID
+     * 人员 所属岗位ID.
      */
     private String postId;
+
     /**
-     * 人员 所属岗位名称
+     * 人员 所属岗位名称.
      */
     private String postName;
+
     /**
-     * 全路径ID
+     * 全路径ID.
      */
     private String fullId;
+
     /**
-     * 全路径名称
+     * 全路径名称.
      */
     private String fullName;
 
