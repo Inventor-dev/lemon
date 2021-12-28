@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>xyz.lemone.lemon</groupId>
         <artifactId>lemon-all</artifactId>
@@ -11,9 +10,7 @@
     </parent>
 
     <artifactId>lemon-server</artifactId>
-
     <name>${artifactId} ${project.version}</name>
-
 
     <dependencies>
 
@@ -33,17 +30,13 @@
         </dependency>
 
         <!--    认证 begin    -->
-
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
         </dependency>
-
         <!--   认证 end     -->
 
-
         <!--    dataSource begin    -->
-
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -83,9 +76,7 @@
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
         </dependency>
-
         <!--    dataSource end    -->
-
 
         <!--  tools begin      -->
         <dependency>
@@ -102,12 +93,9 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
         </dependency>
-
         <!-- tools end-->
 
     </dependencies>
-
-
 
     <!--环境打包配置-->
     <profiles>
@@ -171,34 +159,5 @@
         </plugins>
 
     </build>
-
-    <!--maven 仓库配置-->
-    <repositories>
-        <repository>
-            <id>aliyun-repos</id>
-            <name>aliyun Repository</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-        </repository>
-    </repositories>
-
-    <!--maven 插件仓库-->
-    <pluginRepositories>
-        <pluginRepository>
-            <id>aliyun-repos</id>
-            <name>aliyun Repository</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <!--开发者信息-->
-    <developers>
-        <developer>
-            <id>Inventor-dev</id>
-            <name>Inventor-dev</name>
-            <url>https://github.com/orgs/Inventor-dev</url>
-            <email>lemon_yp@hotmail.com</email>
-        </developer>
-    </developers>
-
 
 </project>

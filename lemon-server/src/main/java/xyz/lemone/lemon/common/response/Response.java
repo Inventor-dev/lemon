@@ -54,7 +54,6 @@ public class Response<D> implements Serializable {
      *
      * @param data 响应数据
      * @param <D> 响应数据类型
-     * @return
      */
     public static <D> Response<D> success(D data) {
         return new Response<>(data);
@@ -64,7 +63,6 @@ public class Response<D> implements Serializable {
      * 成功数据返回.
      *
      * @param <D> 响应数据类型
-     * @return
      */
     public static <D> Response<D> error(String errorCode, String errorMessage) {
         return new Response<>(Boolean.FALSE, errorCode, errorMessage);

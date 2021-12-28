@@ -11,10 +11,6 @@
     <name>lemon ${project.version}</name>
     <description>Top Lemon project pom.xml file</description>
 
-    <prerequisites>
-        <maven>3.8.3</maven>
-    </prerequisites>
-
     <scm>
         <url>git@github.com:Inventor-dev/lemon.git</url>
         <connection>scm:git@github.com:Inventor-dev/lemon.git</connection>
@@ -108,7 +104,6 @@
 
         <!-- 插件配置 -->
         <plugins>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
@@ -160,33 +155,7 @@
                     <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-                <configuration>
-                    <charset>UTF-8</charset>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven-source-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -224,28 +193,28 @@
                     </dependency>
                 </dependencies>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
-<!--                <version>${maven-checkstyle-plugin.version}</version>-->
-<!--                <configuration>-->
-<!--                    <configLocation>style/LemonCheckStyle.xml</configLocation>-->
-<!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
-<!--                    <encoding>UTF-8</encoding>-->
-<!--                    <consoleOutput>true</consoleOutput>-->
-<!--                    <failsOnError>true</failsOnError>-->
-<!--                    <excludes>**/target/generated-sources/annotations/**</excludes>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>validate</id>-->
-<!--                        <phase>validate</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>check</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <configLocation>style/LemonCheckStyle.xml</configLocation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <resourceExcludes>**/generated-sources/**/*.java</resourceExcludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
@@ -273,14 +242,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven-resources-plugin.version}</version>
-                <configuration>
-                    <!-- We are not suppose to setup the customer resources here -->
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -320,6 +282,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
@@ -329,21 +292,20 @@
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs-maven-plugin.version}</version>
             </plugin>
+
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>${sonar-maven-plugin.version}</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>${maven-assembly-plugin.version}</version>
-            </plugin>
+
+            <!--  flatten-maven-plugin   maven 版本占用符处理  -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
@@ -373,6 +335,71 @@
                 </executions>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <!--  maven-javadoc-plugin -->
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <configuration>
+                        <charset>${maven.compiler.source}</charset>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!--  maven-source-plugin  -->
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!--  maven-resources-plugin  -->
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                    <configuration>
+                        <!-- We are not suppose to setup the customer resources here -->
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+
+                <!--  maven-assembly-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${maven-assembly-plugin.version}</version>
+                </plugin>
+
+                <!--  spring-boot-maven-plugin -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-dependencies.version}</version>
+                </plugin>
+
+            </plugins>
+
+        </pluginManagement>
+
+
 
     </build>
 

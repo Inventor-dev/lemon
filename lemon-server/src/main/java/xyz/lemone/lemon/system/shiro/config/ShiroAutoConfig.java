@@ -6,18 +6,18 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.Authorizer;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.mgt.SessionStorageEvaluator;
+import org.apache.shiro.mgt.SessionsSecurityManager;
 import org.apache.shiro.mgt.SubjectDAO;
-import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SubjectFactory;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.spring.web.config.AbstractShiroWebConfiguration;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.filter.authc.BearerHttpAuthenticationFilter;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
-import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.DefaultWebSessionStorageEvaluator;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,7 +27,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import xyz.lemone.lemon.common.Constants;
 import xyz.lemone.lemon.system.shiro.realm.AuthRealm;
-import xyz.lemone.lemon.system.shiro.support.mgt.WebSubjectFactory;
 import xyz.lemone.lemon.system.shiro.support.toolkit.ShiroUtils;
 import xyz.lemone.lemon.system.user.service.SysUserService;
 
@@ -41,7 +40,7 @@ import java.util.List;
  * @author lemon
  */
 @Configuration
-public class ShiroAutoConfig {
+public class ShiroAutoConfig extends AbstractShiroWebConfiguration {
 
     @Value("#{ @environment['shiro.loginUrl'] ?: '/a/login' }")
     protected String loginUrl;
@@ -58,6 +57,7 @@ public class ShiroAutoConfig {
     }
 
     @Bean
+    @Override
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
         chainDefinition.addPathDefinition(Constants.API_PREFIX + "/**", DefaultFilter.authcBearer.name());
@@ -76,11 +76,13 @@ public class ShiroAutoConfig {
     }
 
     @Bean
+    @Override
     public SubjectFactory subjectFactory() {
-        return new WebSubjectFactory();
+        return super.subjectFactory();
     }
 
     @Bean
+    @Override
     public SessionStorageEvaluator sessionStorageEvaluator() {
         DefaultWebSessionStorageEvaluator evaluator = new DefaultWebSessionStorageEvaluator();
         // 禁用session
@@ -89,32 +91,39 @@ public class ShiroAutoConfig {
     }
 
     @Bean
-    public SubjectDAO subjectDao(SessionStorageEvaluator sessionStorageEvaluator) {
-        DefaultSubjectDAO subjectDao = new DefaultSubjectDAO();
-        subjectDao.setSessionStorageEvaluator(sessionStorageEvaluator);
-        return subjectDao;
+    @Override
+    public SubjectDAO subjectDAO() {
+        return super.subjectDAO();
     }
 
     @Bean
+    @Override
     public SessionManager sessionManager() {
-        DefaultSessionManager shiroSessionManager = new DefaultSessionManager();
-        // 关闭session校验轮询
-        shiroSessionManager.setSessionValidationSchedulerEnabled(Boolean.FALSE);
-        return shiroSessionManager;
+        SessionManager sessionManager = super.sessionManager();
+        if (sessionManager instanceof DefaultSessionManager) {
+            DefaultSessionManager shiroSessionManager = (DefaultSessionManager) sessionManager;
+            // 关闭session校验轮询
+            shiroSessionManager.setSessionValidationSchedulerEnabled(Boolean.FALSE);
+        }
+        return sessionManager;
     }
 
     @Bean
-    public SecurityManager securityManager(
-            List<Realm> realms, Authorizer authorizer, Authenticator authenticator,
-            SubjectDAO subjectdao, SubjectFactory subjectFactory, SessionManager sessionManager) {
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setAuthenticator(authenticator);
-        securityManager.setAuthorizer(authorizer);
-        securityManager.setSubjectDAO(subjectdao);
-        securityManager.setSubjectFactory(subjectFactory);
-        securityManager.setSessionManager(sessionManager);
-        securityManager.setRealms(realms);
-        return securityManager;
+    @Override
+    public Authenticator authenticator() {
+        return super.authenticator();
+    }
+
+    @Bean
+    @Override
+    public Authorizer authorizer() {
+        return super.authorizer();
+    }
+
+    @Override
+    @Bean
+    public SessionsSecurityManager securityManager(List<Realm> realms) {
+        return super.securityManager(realms);
     }
 
     @Bean
