@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>lemon-server</artifactId>
-    <name>${artifactId} ${project.version}</name>
+    <name>${project.artifactId} ${project.version}</name>
 
     <dependencies>
 

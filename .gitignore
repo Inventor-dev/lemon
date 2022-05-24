@@ -1,6 +1,7 @@
 /target/
 */target/
 !.mvn/wrapper/maven-wrapper.jar
+*/.flattened-pom.xml
 
 ### STS ###
 .apt_generated
@@ -24,3 +25,4 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+

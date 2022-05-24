@@ -1,8 +1,6 @@
 package xyz.lemone.lemon.common.base.entity;
 
 import cn.org.atool.fluent.mybatis.annotation.TableField;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -45,10 +43,5 @@ public class RecordDO implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }

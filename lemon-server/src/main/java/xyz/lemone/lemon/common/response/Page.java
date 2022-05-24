@@ -3,14 +3,13 @@ package xyz.lemone.lemon.common.response;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  * 分页数据.
  *
  * @author lemon
  */
-public class Page<E> implements Serializable {
+public class Page implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,16 +22,6 @@ public class Page<E> implements Serializable {
      * 每页数据条数.
      */
     private Integer pageSize;
-
-    /**
-     * 数据.
-     */
-    private Collection<E> list;
-
-    /**
-     * 数据总条数.
-     */
-    private Long total;
 
     public Page() {
     }
@@ -53,29 +42,11 @@ public class Page<E> implements Serializable {
         this.pageSize = pageSize;
     }
 
-    public Collection<E> getList() {
-        return list;
-    }
-
-    public void setList(Collection<E> list) {
-        this.list = list;
-    }
-
-    public Long getTotal() {
-        return total;
-    }
-
-    public void setTotal(Long total) {
-        this.total = total;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("current", current)
                 .append("pageSize", pageSize)
-                .append("list", list)
-                .append("total", total)
                 .toString();
     }
 }

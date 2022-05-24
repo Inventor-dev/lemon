@@ -12,7 +12,7 @@
 
   <artifactId>lemon-ui</artifactId>
 
-  <name>${artifactId} ${project.version}</name>
+  <name>${project.artifactId} ${project.version}</name>
 
   <build>
     <plugins>
