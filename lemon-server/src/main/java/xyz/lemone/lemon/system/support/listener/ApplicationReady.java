@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ApplicationReady implements ApplicationListener<ApplicationReadyEvent> {
-
+    
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         System.out.println("\r");

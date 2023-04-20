@@ -5,49 +5,17 @@ server:
 spring:
   aop:
     proxy-target-class: true
-# 数据源 配置
-  datasource:
-    druid:
-      url: jdbc:h2:${MODULE_DIR}/db/default;create=true
-      username: lemon
-      password: Biyu5YzU+6sxDRbmWEa3B2uUcImzDo0BuXjTlL505+/pTb+/0Oqd3ou1R6J8+9Fy3CYrM18nBDqf6wAaPgUGOg==
-      validation-query: select 1
-      initial-size: 5
-      max-active: 20
-      min-idle: 5
-      max-wait: 60000
-      stat-view-servlet:
-        enabled: true
-        url-pattern: /druid/*
-        login-username: druid
-        login-password: druid
-      web-stat-filter:
-        enabled: true
-        url-pattern: /*
-        exclusions:
-        profile-enable: true
-      filter:
-        config:
-          enabled: true
-      filters: config
-      connection-properties: config.decrypt=true
-    initialization-mode: always
-    sql-script-encoding: UTF-8
-    schema: 'classpath*:init/schema.sql'
-    data : 'classpath*:init/data.sql'
-
-
-
+  # 数据源 配置
+  r2dbc:
+#    url: r2dbc:h2:file:///${MODULE_DIR}/db/default
+    url: r2dbc:mysql://etms.lemone.xyz:8306/qtms
+    username: qtms
+    password: qtms
+  initialization-mode: always
+  sql-script-encoding: UTF-8
+  schema: 'classpath*:init/schema.sql'
+  data : 'classpath*:init/data.sql'
 
   # 模板引擎配置
   thymeleaf:
-   cache: false
-schema=classpath:schema:
-  sql:
-#  shiro 配置
-shiro:
-  loginUrl: /login/*
-  successUrl: /
-  unauthorizedUrl: /login.html
-
-
+    cache: false

@@ -8,10 +8,10 @@
     <groupId>xyz.lemone.lemon</groupId>
     <artifactId>lemon-all</artifactId>
     <version>${revision}</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>lemon-ui</artifactId>
-
   <name>${project.artifactId} ${project.version}</name>
 
   <build>

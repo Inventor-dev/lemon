@@ -5,13 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * ServerApplication .
+ *
  * @author lemon
  */
 @SpringBootApplication
 public class ServerApplication {
-
+    
     public static void main(String[] args) {
         SpringApplication.run(ServerApplication.class, args);
     }
-
+    
 }

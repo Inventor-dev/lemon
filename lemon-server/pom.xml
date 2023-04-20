@@ -1,102 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>xyz.lemone.lemon</groupId>
         <artifactId>lemon-all</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-
+    
     <artifactId>lemon-server</artifactId>
     <name>${project.artifactId} ${project.version}</name>
-
+    
     <dependencies>
-
+        
+        <dependency>
+            <groupId>xyz.lemone.lemon</groupId>
+            <artifactId>lemon-domain</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>xyz.lemone.lemon</groupId>
+            <artifactId>lemon-infrastructure</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>xyz.lemone.lemon</groupId>
+            <artifactId>lemon-application</artifactId>
+        </dependency>
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-        <!--    认证 begin    -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-web-starter</artifactId>
-        </dependency>
-        <!--   认证 end     -->
-
-        <!--    dataSource begin    -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.atool</groupId>
-            <artifactId>fluent-mybatis</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.atool</groupId>
-            <artifactId>fluent-mybatis-processor</artifactId>
-        </dependency>
-
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jdbc</artifactId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-
+        
+        <!--    dataSource begin    -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
         </dependency>
-
+        
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-h2</artifactId>
         </dependency>
-
+        
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>dev.miku</groupId>
+            <artifactId>r2dbc-mysql</artifactId>
+            <version>0.8.2.RELEASE</version>
         </dependency>
-
+        
         <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-mssql</artifactId>
+            <version>1.0.0.RELEASE</version>
         </dependency>
+        
         <!--    dataSource end    -->
-
+        
+        <!--    认证 begin    -->
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+        
+        <!--   认证 end     -->
+        
         <!--  tools begin      -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-
+        
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
+        
         <!-- tools end-->
-
+        
     </dependencies>
-
+    
+    <build>
+        <!-- 配置文件处理 -->
+        <resources>
+            <!--要排除的文件-->
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>application*.yml</exclude>
+                </excludes>
+            </resource>
+            <!--要引入的文件-->
+            <resource>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>application.yml</include>
+                    <include>application-${profile.active}.yml</include>
+                </includes>
+            </resource>
+        </resources>
+        
+        <!-- 插件配置 -->
+        <plugins>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        
+        </plugins>
+    
+    </build>
+    
     <!--环境打包配置-->
     <profiles>
         <!--开发环境 默认-->
@@ -123,41 +168,7 @@
                 <profile.active>test</profile.active>
             </properties>
         </profile>
-
+    
     </profiles>
-
-
-    <build>
-        <!-- 配置文件处理 -->
-        <resources>
-            <!--要排除的文件-->
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <excludes>
-                    <exclude>application*.yml</exclude>
-                </excludes>
-            </resource>
-            <!--要引入的文件-->
-            <resource>
-                <filtering>true</filtering>
-                <directory>${basedir}/src/main/resources</directory>
-                <includes>
-                    <include>application.yml</include>
-                    <include>application-${profile.active}.yml</include>
-                </includes>
-            </resource>
-        </resources>
-
-        <!-- 插件配置 -->
-        <plugins>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-        </plugins>
-
-    </build>
 
 </project>

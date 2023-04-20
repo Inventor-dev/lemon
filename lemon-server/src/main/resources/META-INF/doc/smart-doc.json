@@ -1,0 +1,19 @@
+{
+  "serverUrl": "http://127.0.0.1",
+  "serverEnv": "https://{{server}}",
+  "allInOne": true,
+  "outPath": "target/classes/static/",
+  "framework": "spring",
+  "allInOneDocFileName":"index.html",
+  "revisionLogs": [{
+    "version": "1.0"
+  }],
+  "requestHeaders": [{
+    "name": "Authorization",
+    "type": "string",
+    "desc": "Bearer token",
+    "required": true,
+    "pathPatterns": "/api/**",
+    "excludePathPatterns":"/api/login/**"
+  }]
+}

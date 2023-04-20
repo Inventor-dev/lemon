@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <inceptionYear>2018</inceptionYear>
     <groupId>xyz.lemone.lemon</groupId>
     <artifactId>lemon-all</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
-
+    
     <name>lemon ${project.version}</name>
     <description>Top Lemon project pom.xml file</description>
-
+    
     <scm>
         <url>git@github.com:Inventor-dev/lemon.git</url>
         <connection>scm:git@github.com:Inventor-dev/lemon.git</connection>
         <developerConnection>scm:git@github.com:Inventor-dev/lemon.git</developerConnection>
         <tag>lemon-all-${revision}</tag>
     </scm>
-
+    
     <!--开发者信息-->
     <developers>
         <developer>
@@ -27,7 +27,7 @@
             <email>lemon_yp@hotmail.com</email>
         </developer>
     </developers>
-
+    
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -35,28 +35,30 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
+    
     <organization>
         <name>Inventor-dev</name>
         <url>https://github.com/Inventor-dev</url>
     </organization>
-
+    
     <issueManagement>
         <system>github</system>
         <url>https://github.com/Inventor-dev/lemon/issues</url>
     </issueManagement>
-
-
+    
+    
     <properties>
         <revision>1.0.0-SNAPSHOT</revision>
+        <java.version>17</java.version>
+        <resource.delimiter>@</resource.delimiter>
+        <!-- Compiler settings properties -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- Compiler settings properties -->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        
         <!-- Maven properties -->
-        <maven.test.skip>false</maven.test.skip>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <!-- Exclude all generated code -->
         <sonar.jacoco.itReportPath>${project.basedir}/../test/target/jacoco-it.exec</sonar.jacoco.itReportPath>
@@ -69,8 +71,8 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-        <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
-        <apache-rat-plugin.version>0.12</apache-rat-plugin.version>
+        <maven-pmd-plugin.version>3.20.0</maven-pmd-plugin.version>
+        <apache-rat-plugin.version>0.15</apache-rat-plugin.version>
         <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
         <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
         <jacoco-maven-plugin.version>0.7.8</jacoco-maven-plugin.version>
@@ -84,24 +86,107 @@
         <maven-flatten-version>1.1.0</maven-flatten-version>
         <!-- dependency version related to plugin -->
         <extra-enforcer-rules.version>1.0-beta-4</extra-enforcer-rules.version>
-        <p3c-pmd.version>1.3.0</p3c-pmd.version>
-
+        <p3c-pmd.version>2.1.1</p3c-pmd.version>
+        
         <!-- dependency version -->
-        <spring-boot-dependencies.version>2.6.2</spring-boot-dependencies.version>
-        <shiro.verison>1.8.0</shiro.verison>
+        <spring-boot-dependencies.version>3.1.0-M2</spring-boot-dependencies.version>
         <fluent-mybatis.version>1.9.4</fluent-mybatis.version>
-        <mybatis-spring.version>2.2.0</mybatis-spring.version>
-        <alibaba-druid.version>1.2.8</alibaba-druid.version>
-        <google-guava.version>31.0.1-jre</google-guava.version>
-
+        <mybatis-spring.version>3.0.1</mybatis-spring.version>
+        <google-guava.version>31.1-jre</google-guava.version>
+    
     </properties>
-
-
+    
+    <!-- 子模块管理 -->
+    <modules>
+        <module>lemon-ui</module>
+        <module>lemon-domain</module>
+        <module>lemon-infrastructure</module>
+        <module>lemon-application</module>
+        <module>lemon-server</module>
+    </modules>
+    
+    <!-- 管理依赖版本号,子项目不会默认依赖 -->
+    <dependencyManagement>
+        
+        <dependencies>
+            
+            <!-- Internal libs -->
+            
+            <dependency>
+                <groupId>xyz.lemone.lemon</groupId>
+                <artifactId>lemon-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>xyz.lemone.lemon</groupId>
+                <artifactId>lemon-infrastructure</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>xyz.lemone.lemon</groupId>
+                <artifactId>lemon-application</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            
+            <!-- Third-party libs -->
+            
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.10</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.github.atool</groupId>
+                <artifactId>fluent-mybatis</artifactId>
+                <version>${fluent-mybatis.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.github.atool</groupId>
+                <artifactId>fluent-mybatis-processor</artifactId>
+                <version>${fluent-mybatis.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${google-guava.version}</version>
+            </dependency>
+            
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        
+        </dependencies>
+    
+    </dependencyManagement>
+    
     <!-- == -->
     <!-- =========================================================Build plugins================================================ -->
     <!-- == -->
     <build>
-
+        
         <!-- 插件配置 -->
         <plugins>
             <plugin>
@@ -155,7 +240,7 @@
                     <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
-
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -176,6 +261,7 @@
                     <printFailingErrors>true</printFailingErrors>
                     <excludes>
                         <exclude>**/generated-sources/**/*.java</exclude>
+                        <exclude>**/*OAuth2*.java</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -241,7 +327,7 @@
                     </execution>
                 </executions>
             </plugin>
-
+            
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -281,7 +367,7 @@
                     </execution>
                 </executions>
             </plugin>
-
+            
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
@@ -291,19 +377,19 @@
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
-
+            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs-maven-plugin.version}</version>
             </plugin>
-
+            
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>${sonar-maven-plugin.version}</version>
             </plugin>
-
+            
             <!--  flatten-maven-plugin   maven 版本占用符处理  -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -334,11 +420,11 @@
                 </executions>
             </plugin>
         </plugins>
-
+        
         <pluginManagement>
-
+            
             <plugins>
-
+                
                 <!--  maven-javadoc-plugin -->
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
@@ -355,7 +441,7 @@
                         </execution>
                     </executions>
                 </plugin>
-
+                
                 <!--  maven-source-plugin  -->
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
@@ -369,109 +455,198 @@
                         </execution>
                     </executions>
                 </plugin>
-
+                
                 <!--  maven-resources-plugin  -->
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${maven-resources-plugin.version}</version>
                     <configuration>
-                        <!-- We are not suppose to setup the customer resources here -->
                         <encoding>${project.build.sourceEncoding}</encoding>
+                        <delimiters>
+                            <delimiter>${resource.delimiter}</delimiter>
+                        </delimiters>
+                        <useDefaultDelimiters>false</useDefaultDelimiters>
                     </configuration>
                 </plugin>
-
+                
                 <!--  maven-assembly-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly-plugin.version}</version>
                 </plugin>
-
+                
+                <plugin>
+                    <groupId>org.graalvm.buildtools</groupId>
+                    <artifactId>native-maven-plugin</artifactId>
+                    <version>0.9.20</version>
+                    <extensions>true</extensions>
+                </plugin>
+                
                 <!--  spring-boot-maven-plugin -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot-dependencies.version}</version>
+                    <executions>
+                        <execution>
+                            <id>repackage</id>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <mainClass>${start-class}</mainClass>
+                        <finalName>${project.artifactId}-boot</finalName>
+                    </configuration>
                 </plugin>
-
+            
             </plugins>
-
+        
         </pluginManagement>
-
-
-
+    
     </build>
-
-
-    <!-- 子模块管理 -->
-    <modules>
-        <module>lemon-ui</module>
-        <module>lemon-server</module>
-    </modules>
-
-    <!-- 管理依赖版本号,子项目不会默认依赖 -->
-    <dependencyManagement>
-
-        <dependencies>
-
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-
-            <!-- Internal libs -->
-
-
-            <!-- Third-party libs -->
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${alibaba-druid.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-spring.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.github.atool</groupId>
-                <artifactId>fluent-mybatis</artifactId>
-                <version>${fluent-mybatis.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.github.atool</groupId>
-                <artifactId>fluent-mybatis-processor</artifactId>
-                <version>${fluent-mybatis.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring-boot-web-starter</artifactId>
-                <version>${shiro.verison}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${google-guava.version}</version>
-            </dependency>
-
-        </dependencies>
-
-    </dependencyManagement>
-
-
+    
+    <profiles>
+        <profile>
+            <id>native</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-maven-plugin</artifactId>
+                            <configuration>
+                                <image>
+                                    <builder>paketobuildpacks/builder:tiny</builder>
+                                    <env>
+                                        <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+                                    </env>
+                                </image>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <id>process-aot</id>
+                                    <goals>
+                                        <goal>process-aot</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.graalvm.buildtools</groupId>
+                            <artifactId>native-maven-plugin</artifactId>
+                            <configuration>
+                                <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+                                <metadataRepository>
+                                    <enabled>true</enabled>
+                                </metadataRepository>
+                                <requiredVersion>22.3</requiredVersion>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <id>add-reachability-metadata</id>
+                                    <goals>
+                                        <goal>add-reachability-metadata</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>build-native</id>
+                                    <goals>
+                                        <goal>compile-no-fork</goal>
+                                    </goals>
+                                    <phase>package</phase>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>nativeTest</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.junit.platform</groupId>
+                    <artifactId>junit-platform-launcher</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>process-test-aot</id>
+                                <goals>
+                                    <goal>process-test-aot</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <configuration>
+                            <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+                            <metadataRepository>
+                                <enabled>true</enabled>
+                            </metadataRepository>
+                            <requiredVersion>22.3</requiredVersion>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>native-test</id>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>api-doc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.shalousun</groupId>
+                        <artifactId>smart-doc-maven-plugin</artifactId>
+                        <version>2.6.5</version>
+                        <configuration>
+                            <!--Specify the configuration file used to generate the document-->
+                            <configFile>${project.basedir}/src/main/resources/META-INF/doc/smart-doc.json</configFile>
+                            <projectName>${project.artifactId}</projectName>
+                            <includes>
+                                <include>io.micrometer:micrometer-tracing</include>
+                                <include>jakarta.servlet:jakarta.servlet-api</include>
+                            </includes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <!--Comment out phase if you don't need to start smart-doc when compiling-->
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <!--smart-doc provides html, openapi, markdown, adoc and other goals-->
+                                    <goal>openapi</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
     <!--maven 仓库配置-->
     <repositories>
         <repository>
@@ -479,14 +654,24 @@
             <name>aliyun Repository</name>
             <url>https://maven.aliyun.com/nexus/content/groups/public</url>
         </repository>
+        <repository>
+            <id>spring-milestone</id>
+            <name>spring milestone</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
     </repositories>
-
+    
     <!--maven 插件仓库-->
     <pluginRepositories>
         <pluginRepository>
             <id>aliyun-repos</id>
             <name>aliyun Repository</name>
             <url>https://maven.aliyun.com/nexus/content/groups/public</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestone</id>
+            <name>spring milestone</name>
+            <url>https://repo.spring.io/milestone</url>
         </pluginRepository>
     </pluginRepositories>
 
