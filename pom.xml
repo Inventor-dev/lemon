@@ -92,7 +92,7 @@
         <fluent-mybatis.version>1.9.4</fluent-mybatis.version>
         <mybatis-spring.version>2.2.0</mybatis-spring.version>
         <alibaba-druid.version>1.2.8</alibaba-druid.version>
-        <google-guava.version>31.0.1-jre</google-guava.version>
+        <google-guava.version>32.0.0-jre</google-guava.version>
 
     </properties>
 
