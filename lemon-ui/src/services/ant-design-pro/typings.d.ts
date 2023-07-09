@@ -24,10 +24,18 @@ declare namespace API {
   };
 
   type LoginResult = {
-    status?: string;
-    type?: string;
-    currentAuthority?: string;
+    success: boolean;
+    data: AccessToken;
+    errorCode: string;
+    errorMessage: string;
   };
+
+  type AccessToken = {
+    token_type: string;
+    expires_in: string;
+    access_token: string;
+    refresh_token: string;
+  }
 
   type PageParams = {
     current?: number;
