@@ -3,23 +3,18 @@ package xyz.lemone.lemon.security.web.server.authentication;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.MessageSourceAccessor;
-import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.SpringSecurityMessageSource;
-import org.springframework.security.core.userdetails.ReactiveUserDetailsPasswordService;
-import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 import xyz.lemone.lemon.security.authentication.UserInfo;
+import xyz.lemone.lemon.system.user.manager.SystemUserManager;
+import xyz.lemone.lemon.system.user.manager.model.SystemUser;
 
 /**
  * @author lemon
@@ -28,75 +23,43 @@ public class AccountLoginAuthenticationManager implements ReactiveAuthentication
     
     protected final Log logger = LogFactory.getLog(getClass());
     
-    private ReactiveUserDetailsService userDetailsService;
+    private SystemUserManager systemUserManager;
     
     protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
     
     private PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     
-    private ReactiveUserDetailsPasswordService userDetailsPasswordService;
-    
     private Scheduler scheduler = Schedulers.boundedElastic();
-    
-    private UserDetailsChecker preAuthenticationChecks = this::defaultPreAuthenticationChecks;
-    
-    private void defaultPreAuthenticationChecks(UserDetails user) {
-        if (!user.isAccountNonLocked()) {
-            this.logger.debug("User account is locked");
-            throw new LockedException(this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.locked",
-                    "User account is locked"));
-        }
-        if (!user.isEnabled()) {
-            this.logger.debug("User account is disabled");
-            throw new DisabledException(
-                    this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.disabled", "User is disabled"));
-        }
-        if (!user.isAccountNonExpired()) {
-            this.logger.debug("User account is expired");
-            throw new AccountExpiredException(
-                    this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.expired",
-                            "User account has expired"));
-        }
-    }
     
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
         return doAccountAuthenticate((AccountAuthenticationToken) authentication).map(this::createAuthenticationToken);
     }
     
-    private Mono<UserDetails> doAccountAuthenticate(AccountAuthenticationToken accountToken) {
+    private Mono<SystemUser> doAccountAuthenticate(AccountAuthenticationToken accountToken) {
         String username = accountToken.getPrincipal();
         String presentedPassword = accountToken.getCredentials();
         // @formatter:off
-        return userDetailsService.findByUsername(username)
-                .doOnNext(preAuthenticationChecks::check)
+        return systemUserManager.findByUsername(username)
                 .publishOn(scheduler)
                 .filter((userDetails) -> this.passwordEncoder.matches(presentedPassword, userDetails.getPassword()))
-                .switchIfEmpty(Mono.defer(() -> Mono.error(new BadCredentialsException("Invalid Credentials"))))
-                .flatMap((userDetails) -> upgradeEncodingIfNecessary(userDetails, presentedPassword));
+                .switchIfEmpty(Mono.defer(() -> Mono.error(new BadCredentialsException("Invalid Credentials"))));
         // @formatter:on
     }
     
-    private Mono<UserDetails> upgradeEncodingIfNecessary(UserDetails userDetails, String presentedPassword) {
-        boolean upgradeEncoding =
-                userDetailsPasswordService != null && passwordEncoder.upgradeEncoding(userDetails.getPassword());
-        if (upgradeEncoding) {
-            String newPassword = passwordEncoder.encode(presentedPassword);
-            return userDetailsPasswordService.updatePassword(userDetails, newPassword);
-        }
-        return Mono.just(userDetails);
-    }
-    
-    private LoginAuthentication createAuthenticationToken(UserDetails userDetails) {
-        return LoginAuthentication.authenticated(UserInfo.UserInfoBuilder.anUserInfo().build(), null, null);
+    private LoginAuthentication createAuthenticationToken(SystemUser systemUser) {
+        return LoginAuthentication.authenticated(
+                UserInfo.UserInfoBuilder.anUserInfo().withUserId(systemUser.getUserid())
+                        .withUsername(systemUser.getUsername()).withRealName(systemUser.getRealName())
+                        .withPhone(systemUser.getPhone()).build(), null, null);
     }
     
     
-    public ReactiveUserDetailsService getUserDetailsService() {
-        return userDetailsService;
+    public SystemUserManager getSystemUserManager() {
+        return systemUserManager;
     }
     
-    public void setUserDetailsService(ReactiveUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public void setSystemUserManager(SystemUserManager systemUserManager) {
+        this.systemUserManager = systemUserManager;
     }
 }

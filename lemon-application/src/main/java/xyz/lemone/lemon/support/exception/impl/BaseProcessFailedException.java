@@ -1,4 +1,4 @@
-package xyz.lemone.lemon.common.support.exception.impl;
+package xyz.lemone.lemon.support.exception.impl;
 
 import xyz.lemone.lemon.support.error.IError;
 import xyz.lemone.lemon.support.exception.impl.AbstractRuntimeException;

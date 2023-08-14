@@ -13,6 +13,11 @@
     <artifactId>lemon-server</artifactId>
     <name>${project.artifactId} ${project.version}</name>
     
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+    
     <dependencies>
         
         <dependency>
@@ -28,6 +33,12 @@
         <dependency>
             <groupId>xyz.lemone.lemon</groupId>
             <artifactId>lemon-application</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>xyz.lemone.lemon</groupId>
+            <artifactId>lemon-ui</artifactId>
+            <version>${project.version}</version>
         </dependency>
         
         <dependency>
@@ -96,7 +107,7 @@
         </dependency>
         
         <!-- tools end-->
-        
+    
     </dependencies>
     
     <build>
@@ -126,6 +137,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             
             <plugin>

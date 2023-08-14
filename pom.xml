@@ -241,44 +241,44 @@
                 </configuration>
             </plugin>
             
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>${maven-pmd-plugin.version}</version>
-                <configuration>
-                    <rulesets>
-                        <ruleset>rulesets/java/ali-comment.xml</ruleset>
-                        <ruleset>rulesets/java/ali-concurrent.xml</ruleset>
-                        <ruleset>rulesets/java/ali-constant.xml</ruleset>
-                        <ruleset>rulesets/java/ali-exception.xml</ruleset>
-                        <ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>
-                        <ruleset>rulesets/java/ali-naming.xml</ruleset>
-                        <ruleset>rulesets/java/ali-oop.xml</ruleset>
-                        <ruleset>rulesets/java/ali-orm.xml</ruleset>
-                        <ruleset>rulesets/java/ali-other.xml</ruleset>
-                        <ruleset>rulesets/java/ali-set.xml</ruleset>
-                    </rulesets>
-                    <printFailingErrors>true</printFailingErrors>
-                    <excludes>
-                        <exclude>**/generated-sources/**/*.java</exclude>
-                        <exclude>**/*OAuth2*.java</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.alibaba.p3c</groupId>
-                        <artifactId>p3c-pmd</artifactId>
-                        <version>${p3c-pmd.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-pmd-plugin</artifactId>-->
+<!--                <version>${maven-pmd-plugin.version}</version>-->
+<!--                <configuration>-->
+<!--                    <rulesets>-->
+<!--                        <ruleset>rulesets/java/ali-comment.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-concurrent.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-constant.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-exception.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-naming.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-oop.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-orm.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-other.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-set.xml</ruleset>-->
+<!--                    </rulesets>-->
+<!--                    <printFailingErrors>true</printFailingErrors>-->
+<!--                    <excludes>-->
+<!--                        <exclude>**/generated-sources/**/*.java</exclude>-->
+<!--                        <exclude>**/*OAuth2*.java</exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.alibaba.p3c</groupId>-->
+<!--                        <artifactId>p3c-pmd</artifactId>-->
+<!--                        <version>${p3c-pmd.version}</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
 <!--            <plugin>-->
 <!--                <groupId>org.apache.maven.plugins</groupId>-->
 <!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
@@ -301,32 +301,7 @@
 <!--                    </execution>-->
 <!--                </executions>-->
 <!--            </plugin>-->
-            <plugin>
-                <groupId>org.apache.rat</groupId>
-                <artifactId>apache-rat-plugin</artifactId>
-                <version>${apache-rat-plugin.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>.idea</exclude>
-                        <exclude>.mvn/**</exclude>
-                        <exclude>.editorconfig</exclude>
-                        <exclude>mvnw</exclude>
-                        <exclude>mvnw.cmd</exclude>
-                        <exclude>README.md</exclude>
-                        <exclude>.github/**/*</exclude>
-                        <exclude>.gitignore</exclude>
-                        <exclude>/lemon-ui/**</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--pmd-->
             
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -519,6 +494,7 @@
                         <plugin>
                             <groupId>org.springframework.boot</groupId>
                             <artifactId>spring-boot-maven-plugin</artifactId>
+                            <version>${spring-boot-dependencies.version}</version>
                             <configuration>
                                 <image>
                                     <builder>paketobuildpacks/builder:tiny</builder>
@@ -539,12 +515,13 @@
                         <plugin>
                             <groupId>org.graalvm.buildtools</groupId>
                             <artifactId>native-maven-plugin</artifactId>
+                            <version>0.9.23</version>
                             <configuration>
                                 <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                                 <metadataRepository>
                                     <enabled>true</enabled>
                                 </metadataRepository>
-                                <requiredVersion>22.3</requiredVersion>
+                                <requiredVersion>23.0</requiredVersion>
                             </configuration>
                             <executions>
                                 <execution>

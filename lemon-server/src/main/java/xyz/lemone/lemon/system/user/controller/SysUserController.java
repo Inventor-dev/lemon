@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import xyz.lemone.lemon.support.Constants;
 import xyz.lemone.lemon.support.response.SingleResponse;
-import xyz.lemone.lemon.system.user.entity.SysUser;
-import xyz.lemone.lemon.system.user.service.SysUserService;
+import xyz.lemone.lemon.system.user.entity.SystemUserDO;
+import xyz.lemone.lemon.system.user.service.SystemUserService;
 
 /**
  * SysUserController.
@@ -21,12 +21,11 @@ import xyz.lemone.lemon.system.user.service.SysUserService;
 public class SysUserController {
     
     @Autowired
-    private SysUserService sysUserService;
+    private SystemUserService systemUserService;
     
-    @GetMapping("phone/{phone}")
-    public Mono<SingleResponse<SysUser>> loadByPhone(@PathVariable("phone") String phone) {
-        return sysUserService.loadByPhone(phone).map(sysUser -> SingleResponse.of(sysUser))
-                .defaultIfEmpty(SingleResponse.SUCCESS);
+    @GetMapping()
+    public Mono<SingleResponse<SystemUserDO>> loadByPhone(SystemUserDO param) {
+        return Mono.just(SingleResponse.SUCCESS);
     }
     
 }

@@ -18,7 +18,7 @@ public class UserInfo implements Serializable {
     /**
      * 用户唯一标识.
      */
-    private String userId;
+    private String userid;
 
     /**
      * 登陆名.
@@ -31,11 +31,6 @@ public class UserInfo implements Serializable {
     private String phone;
 
     /**
-     * 人员 编码.
-     */
-    private String userCode;
-
-    /**
      * 真实姓名.
      */
     private String realName;
@@ -43,8 +38,8 @@ public class UserInfo implements Serializable {
     private UserInfo() {
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserid() {
+        return userid;
     }
 
     public String getUsername() {
@@ -54,11 +49,7 @@ public class UserInfo implements Serializable {
     public String getPhone() {
         return phone;
     }
-
-    public String getUserCode() {
-        return userCode;
-    }
-
+    
     public String getRealName() {
         return realName;
     }
@@ -66,10 +57,9 @@ public class UserInfo implements Serializable {
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
-                .append("userId", userId)
+                .append("userid", userid)
                 .append("username", username)
                 .append("phone", phone)
-                .append("userCode", userCode)
                 .append("realName", realName)
                 .toString();
     }
@@ -86,7 +76,7 @@ public class UserInfo implements Serializable {
         }
 
         public UserInfoBuilder withUserId(String userId) {
-            userInfo.userId = userId;
+            userInfo.userid = userId;
             return this;
         }
 
@@ -97,11 +87,6 @@ public class UserInfo implements Serializable {
 
         public UserInfoBuilder withPhone(String phone) {
             userInfo.phone = phone;
-            return this;
-        }
-
-        public UserInfoBuilder withUserCode(String userCode) {
-            userInfo.userCode = userCode;
             return this;
         }
 

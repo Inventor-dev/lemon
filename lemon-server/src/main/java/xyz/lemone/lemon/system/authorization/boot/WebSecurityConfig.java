@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.ReactiveAuthenticationManagerResolver;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.server.resource.authentication.OpaqueTokenReactiveAuthenticationManager;
 import org.springframework.security.web.server.SecurityWebFilterChain;
@@ -22,6 +21,7 @@ import xyz.lemone.lemon.support.Constants;
 import xyz.lemone.lemon.system.authorization.OAuth2TokenType;
 import xyz.lemone.lemon.system.authorization.service.InMemoryOAuth2AuthorizationService;
 import xyz.lemone.lemon.system.authorization.service.OAuth2AuthorizationService;
+import xyz.lemone.lemon.system.user.manager.SystemUserManager;
 
 /**
  * WebSecurityConfig.
@@ -36,7 +36,7 @@ public class WebSecurityConfig {
     private ObjectMapper objectMapper;
     
     @Autowired
-    private ReactiveUserDetailsService reactiveUserDetailsService;
+    private SystemUserManager systemUserManager;
     
     @Bean
     SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
@@ -60,7 +60,7 @@ public class WebSecurityConfig {
     
     private AccountLoginAuthenticationManager accountLoginAuthenticationManager() {
         AccountLoginAuthenticationManager manager = new AccountLoginAuthenticationManager();
-        manager.setUserDetailsService(reactiveUserDetailsService);
+        manager.setSystemUserManager(systemUserManager);
         return manager;
     }
     

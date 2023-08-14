@@ -1,11 +1,11 @@
 // https://umijs.org/config/
-import { defineConfig } from '@umijs/max';
-import { join } from 'path';
+import {defineConfig} from '@umijs/max';
+import {join} from 'path';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
 
-const { REACT_APP_ENV = 'dev' } = process.env;
+const {REACT_APP_ENV = 'dev'} = process.env;
 
 export default defineConfig({
   /**
@@ -14,6 +14,11 @@ export default defineConfig({
    * @doc https://umijs.org/docs/api/config#hash
    */
   hash: true,
+
+  /**
+   * @name 访问前缀
+   */
+  base: "/ui",
 
   /**
    * @name 兼容性设置
@@ -54,6 +59,7 @@ export default defineConfig({
    * @doc https://umijs.org/docs/api/config#outputpath
    */
   outputPath: 'target/classes/static',
+
   /**
    * @name 代理配置
    * @description 可以让你的本地服务器代理到你的服务器上，这样你就可以访问服务器的数据了
@@ -132,7 +138,7 @@ export default defineConfig({
    */
   headScripts: [
     // 解决首次加载时白屏的问题
-    { src: '/scripts/loading.js', async: true },
+    {src: '/scripts/loading.js', async: true},
   ],
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
@@ -151,8 +157,8 @@ export default defineConfig({
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
-      projectName: 'swagger',
+      schemaPath: 'http://localhost:8080/openapi.json',
+      projectName: 'lemon',
     },
   ],
   mfsu: {

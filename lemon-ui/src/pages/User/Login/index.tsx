@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import {
   LoginForm,
+  LoginFormPage,
   ProFormCaptcha,
   ProFormCheckbox,
   ProFormText,
